@@ -2,27 +2,26 @@ package com.example.ativooperante_back.db.entidades;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name="AO_ORGAOS")
-public class Orgaos {
+@Table(name="AO_ORGAO")
+public class Orgao {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SEQ_AO_ORGAOS")
+    @SequenceGenerator(name = "SEQ_AO_ORGAO", allocationSize = 1)
     @Column(name="ORG_ID")
     private Long id;
 
     @Column(name="ORG_NOME")
     private String nome;
 
-    public Orgaos() {
+    public Orgao() {
         this(0L, "");
     }
 
-    public Orgaos(Long id, String nome) {
+    public Orgao(Long id, String nome) {
         this.id = id;
         this.nome = nome;
     }
