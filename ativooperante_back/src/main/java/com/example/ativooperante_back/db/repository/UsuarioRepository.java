@@ -4,6 +4,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.example.ativooperante_back.db.entidades.Usuario;
 
-public interface UsuarioDAO extends JpaRepository<Usuario, Long>{
-    
+public interface UsuarioRepository extends JpaRepository<Usuario, Long>{
+    public Usuario findByEmail(String email);
 }

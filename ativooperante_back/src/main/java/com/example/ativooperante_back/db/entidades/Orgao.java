@@ -8,21 +8,21 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name="AO_ORGAOS")
-public class Orgaos {
+@Table(name="AO_ORGAO")
+public class Orgao {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SEQ_AO_ORGAOS")
+    @GeneratedValue(strategy =  GenerationType.IDENTITY)//GenerationType.SEQUENCE, generator = "SEQ_AO_ORGAO")
     @Column(name="ORG_ID")
     private Long id;
 
     @Column(name="ORG_NOME")
     private String nome;
 
-    public Orgaos() {
+    public Orgao() {
         this(0L, "");
     }
 
-    public Orgaos(Long id, String nome) {
+    public Orgao(Long id, String nome) {
         this.id = id;
         this.nome = nome;
     }
