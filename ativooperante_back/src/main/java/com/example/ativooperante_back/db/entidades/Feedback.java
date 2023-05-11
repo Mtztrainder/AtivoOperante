@@ -2,18 +2,17 @@ package com.example.ativooperante_back.db.entidades;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
+import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
 
 @Entity
 @Table(name="AO_FEEDBACK")
 public class Feedback {
     @Id
-    @GeneratedValue(strategy =  GenerationType.IDENTITY)//GenerationType.SEQUENCE, generator = "SEQ_AO_FEEDBACK")
+    @SequenceGenerator(name = "SEQ_AO_FEEDBACK", allocationSize = 1)
     @Column(name="FEE_ID")
     private Long id;
 
