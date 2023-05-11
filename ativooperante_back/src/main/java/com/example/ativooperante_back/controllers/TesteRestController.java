@@ -14,7 +14,7 @@ public class TesteRestController {
     @Autowired
     OrgaoRepository repoOrgao;
 
-    @GetMapping("orgaos")
+    @GetMapping("orgao")
     ResponseEntity<Object> findOrgaos(){
         return ResponseEntity.ok(repoOrgao.findAll());
     }
