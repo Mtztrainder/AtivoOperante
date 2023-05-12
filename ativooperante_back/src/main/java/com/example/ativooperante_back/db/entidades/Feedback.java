@@ -2,6 +2,7 @@ package com.example.ativooperante_back.db.entidades;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
@@ -19,7 +20,7 @@ public class Feedback {
     @Column(name="FEE_TEXTO")
     private String texto;
     
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY) 
     @JoinColumn(name="DEN_ID", nullable=false)  
     private Denuncia denuncia;
 
@@ -41,10 +42,6 @@ public class Feedback {
         return texto;
     }
 
-    public Denuncia getDenuncia() {
-        return denuncia;
-    }
-
     public void setId(Long id) {
         this.id = id;
     }
@@ -53,7 +50,4 @@ public class Feedback {
         this.texto = texto;
     }
 
-    public void setDenuncia(Denuncia denuncia) {
-        this.denuncia = denuncia;
-    }
 }
