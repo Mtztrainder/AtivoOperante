@@ -43,15 +43,15 @@ public class Denuncia {
     @JoinColumn(name="USU_ID", nullable=false)  
     private Usuario usuario;
 
-    @OneToOne(mappedBy = "denuncia") //se der erro  optional = true
+    @OneToOne(mappedBy = "denuncia", optional = true)
     private Feedback feedback;
 
     public Denuncia() {
-        this(0L, null, "", "", 0, null, null, null);
+        this(0L, null, "", "", 0, null, null, null, null);
     }
 
     public Denuncia(Long id, LocalDateTime dtCriacao, String titulo, String texto, int urgencia, Orgao orgao,
-            Tipo tipo, Usuario usuario) {
+            Tipo tipo, Usuario usuario, Feedback feedback) {
         this.id = id;
         this.dtCriacao = dtCriacao;
         this.titulo = titulo;
@@ -60,6 +60,8 @@ public class Denuncia {
         this.orgao = orgao;
         this.tipo = tipo;
         this.usuario = usuario;
+        this.feedback = feedback;
+
     }
 
     
@@ -96,6 +98,10 @@ public class Denuncia {
         return usuario;
     }
 
+    public Feedback getFeedback() {
+        return feedback;
+    }
+    
     public void setId(Long id) {
         this.id = id;
     }
@@ -127,4 +133,8 @@ public class Denuncia {
     public void setUsuario(Usuario usuario) {
         this.usuario = usuario;
     }
+
+    public void setFeedback(Feedback feedback) {
+        this.feedback = feedback;
+    }    
 }
