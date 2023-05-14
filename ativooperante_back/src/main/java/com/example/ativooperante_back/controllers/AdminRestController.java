@@ -36,7 +36,7 @@ public class AdminRestController {
         return ResponseEntity.ok().body(orgaorepo.findAll(Sort.by("nome")));
     }
 
-    @PostMapping("  ")
+    @PostMapping("save-orgao")
     public ResponseEntity <Object> saveOrgao(@RequestBody Orgao orgao){
         return ResponseEntity.ok().body(orgaorepo.save(orgao));
     }
@@ -80,8 +80,6 @@ public class AdminRestController {
 
         return ResponseEntity.ok().body("deletado com sucesso");
     }
-
-    /*DENUNCIA: ADICIONAR FEEDBACK*/
     @PostMapping("add-feedback/{den_id}/{texto}")
     public ResponseEntity <Object> addFeedback(@PathVariable(value="den_id") Long den_id,
                                                 @PathVariable(value="texto") String texto)
@@ -94,7 +92,7 @@ public class AdminRestController {
         }
     }
 
-    @GetMapping("del-tipo/{id}")
+    @GetMapping("del-denuncia/{id}")
     public ResponseEntity <Object> delDenuncia(@PathVariable(value = "id") long id){
         try{
             if (!denunciarepo.existsById((long) id))
@@ -107,6 +105,4 @@ public class AdminRestController {
 
         return ResponseEntity.ok().body("deletado com sucesso");
     }
-
-    /*DENUNCIA: excluir */
 }

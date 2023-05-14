@@ -34,17 +34,12 @@ public class CidadaoRestController {
     {
         return ResponseEntity.ok().body(orgaorepo.findAll(Sort.by("nome")));
     }
-
-
-    //get-tipos
-
+    
     @GetMapping("get-tipos")
     public ResponseEntity<Object> getTipos()
     {
         return ResponseEntity.ok().body(tiporepo.findAll(Sort.by("nome")));
     }
-
-    //get-denuncia  (usuário){}
 
     @GetMapping("get-denuncia/{id_usu}")
     public ResponseEntity<Object> getDenuncia(@PathVariable(value = "id_usu") long id_usu)
@@ -54,7 +49,6 @@ public class CidadaoRestController {
         return ResponseEntity.ok().body(denunciarepo.findAllByUsuario(usuario));
     }
 
-    //add-denuncia (denuncia){}
     @PostMapping("add-denuncia")
     public ResponseEntity<Object> addDenuncia(@RequestBody Denuncia denuncia) {
                 
