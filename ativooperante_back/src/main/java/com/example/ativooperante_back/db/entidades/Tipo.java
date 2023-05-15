@@ -2,15 +2,16 @@ package com.example.ativooperante_back.db.entidades;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
 
 @Entity
 @Table(name="AO_TIPO")
 public class Tipo {
     @Id
-    @SequenceGenerator(name = "SEQ_AO_TIPO", allocationSize = 1)
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
     @Column(name="TIP_ID")
     private Long id;
 
