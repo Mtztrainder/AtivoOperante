@@ -2,6 +2,7 @@ package com.example.ativooperante_back.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -16,7 +17,7 @@ import com.example.ativooperante_back.db.repository.OrgaoRepository;
 import com.example.ativooperante_back.db.repository.TipoRepository;
 
 import org.springframework.data.domain.Sort;
-
+@CrossOrigin
 @RestController
 @RequestMapping("apis/admin")
 public class AdminRestController {
@@ -80,7 +81,7 @@ public class AdminRestController {
 
         return ResponseEntity.ok().body("deletado com sucesso");
     }
-    @PostMapping("add-feedback/{den_id}/{texto}")
+    @GetMapping("add-feedback/{den_id}/{texto}")
     public ResponseEntity <Object> addFeedback(@PathVariable(value="den_id") Long den_id,
                                                 @PathVariable(value="texto") String texto)
     {
