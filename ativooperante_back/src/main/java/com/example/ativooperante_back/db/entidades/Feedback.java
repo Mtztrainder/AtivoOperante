@@ -14,7 +14,7 @@ import jakarta.persistence.Table;
 @Table(name="AO_FEEDBACK")
 public class Feedback {
     @Id
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    @GeneratedValue(strategy=GenerationType.SEQUENCE, generator = "SEQ_AO_FEEDBACK")
     @Column(name="FEE_ID")
     private Long id;
 
