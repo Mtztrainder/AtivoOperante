@@ -81,17 +81,17 @@ public class AdminRestController {
 
         return ResponseEntity.ok().body("deletado com sucesso");
     }
-    @GetMapping("add-feedback/{den_id}/{texto}")
-    public ResponseEntity <Object> addFeedback(@PathVariable(value="den_id") Long den_id,
-                                                @PathVariable(value="texto") String texto)
-    {
-        try{
-            denunciarepo.addFeedback(den_id, texto);
-            return ResponseEntity.ok().body("inserido com sucesso");
-        }catch(Exception e){
-            return ResponseEntity.badRequest().body(e.getMessage());
-        }
-    }
+    // @GetMapping("add-feedback/{den_id}/{texto}")
+    // public ResponseEntity <Object> addFeedback(@PathVariable(value="den_id") Long den_id,
+    //                                             @PathVariable(value="texto") String texto)
+    // {
+    //     try{
+    //         denunciarepo.addFeedback(den_id, texto);
+    //         return ResponseEntity.ok().body("inserido com sucesso");
+    //     }catch(Exception e){
+    //         return ResponseEntity.badRequest().body(e.getMessage());
+    //     }
+    // }
 
     @GetMapping("del-denuncia/{id}")
     public ResponseEntity <Object> delDenuncia(@PathVariable(value = "id") long id){
