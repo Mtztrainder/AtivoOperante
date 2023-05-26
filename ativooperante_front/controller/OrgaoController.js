@@ -17,15 +17,15 @@ async function LoadTable(busca) {
 
     html += `
     <table class="w-full divide-gray-600">
-    <thead class="flex bg-gray-500">
+    <thead class="flex bg-orange-400 text-white">
         <tr class="flex w-full mb-4">
-            <th scope="col" class="p-4 w-3/12 text-xs font-medium text-left text-white uppercase text-gray-400">
+            <th scope="col" class="p-4 w-3/12 text-xs font-medium text-left text-white uppercase ">
                 Código
             </th>
-            <th scope="col" class="p-4 w-5/12 text-xs font-medium text-left text-white uppercase text-gray-400">
+            <th scope="col" class="p-4 w-5/12 text-xs font-medium text-left text-white uppercase">
                 Nome
             </th>    
-            <th scope="col" class="p-4 w-4/12 text-xs font-medium text-left text-white uppercase text-gray-400">
+            <th scope="col" class="p-4 w-4/12 text-xs font-medium text-left text-white uppercase ">
                 Ações
             </th>
         </tr>
