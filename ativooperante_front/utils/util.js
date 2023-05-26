@@ -75,10 +75,10 @@ function geraASIDE(tela){
 
     let html = `<ul class="list-reset flex flex-col">`
     List.forEach((elem) =>{
-        let ativo = elem.link.indexOf(tela) > 0 ? "bg-white" : ""
+        let ativo = elem.link.indexOf(tela) > 0 ? "bg-orange-200" : ""
 
         html = html + `
-            <li class=" w-full h-full py-3 px-2 border-b border-light-border ${ativo}">
+            <li class=" w-full h-full py-3 px-2  ${ativo}">
                 <a href="${elem.link}"
                     class="font-sans font-hairline 
                             hover:font-normal text-sm text-nav-item no-underline">
