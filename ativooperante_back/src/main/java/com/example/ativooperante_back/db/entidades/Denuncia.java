@@ -10,13 +10,15 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToOne;
+import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
 
 @Entity
 @Table(name="AO_DENUNCIA")
 public class Denuncia {
     @Id
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    @GeneratedValue(strategy=GenerationType.SEQUENCE, generator = "SEQ_DENUNCIA")
+    @SequenceGenerator(name ="SEQ_DENUNCIA", sequenceName = "SEQ_AO_DENUNCIA", allocationSize = 1)
     @Column(name="DEN_ID")
     private Long id;
 

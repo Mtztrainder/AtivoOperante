@@ -35,11 +35,23 @@ public class CidadaoRestController {
     {
         return ResponseEntity.ok().body(orgaorepo.findAll(Sort.by("nome")));
     }
+
+    @GetMapping("get-orgaos-nome/{nome}")
+    public ResponseEntity<Object> getOrgaos(@PathVariable(value = "nome") String nome)
+    {
+        return ResponseEntity.ok().body(orgaorepo.findAllByNomeLikeIgnoreCaseOrderByNomeAsc('%'+nome+'%'));
+    }
     
     @GetMapping("get-tipos")
     public ResponseEntity<Object> getTipos()
     {
         return ResponseEntity.ok().body(tiporepo.findAll(Sort.by("nome")));
+    }
+
+    @GetMapping("get-tipos-nome/{nome}")
+    public ResponseEntity<Object> getTipos(@PathVariable(value = "nome") String nome)
+    {
+        return ResponseEntity.ok().body(tiporepo.findAllByNomeLikeIgnoreCaseOrderByNomeAsc('%'+nome+'%'));
     }
 
     @GetMapping("get-denuncia/{id_usu}")

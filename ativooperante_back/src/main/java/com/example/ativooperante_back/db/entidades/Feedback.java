@@ -8,13 +8,15 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
+import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
 
 @Entity
 @Table(name="AO_FEEDBACK")
 public class Feedback {
     @Id
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    @GeneratedValue(strategy=GenerationType.SEQUENCE, generator = "SEQ_FEEDBACK")
+    @SequenceGenerator(name ="SEQ_FEEDBACK", sequenceName = "SEQ_AO_FEEDBACK", allocationSize = 1)
     @Column(name="FEE_ID")
     private Long id;
 

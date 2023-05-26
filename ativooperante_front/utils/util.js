@@ -1,3 +1,21 @@
+/**
+ * ### Modals ###
+ */
+
+function toggleModal(action, elem_trigger)
+{
+    elem_trigger.addEventListener('click', function () {
+        if (action == 'add') {
+            let modal_id = this.dataset.modal;
+            document.getElementById(`${modal_id}`).classList.add('modal-is-open');
+        } else {
+            // Automaticlly get the opned modal ID
+            let modal_id = elem_trigger.closest('.modal-wrapper').getAttribute('id');
+            document.getElementById(`${modal_id}`).classList.remove('modal-is-open');
+        }
+    });
+}
+
 var sidebar = document.getElementById('sidebar');
 
 function sidebarToggle() {
@@ -17,27 +35,6 @@ function profileToggle() {
         profileDropdown.style.display = "none";
     }
 }
-
-
-/**
- * ### Modals ###
- */
-
-function toggleModal(action, elem_trigger)
-{
-    elem_trigger.addEventListener('click', function () {
-        if (action == 'add') {
-            let modal_id = this.dataset.modal;
-            document.getElementById(`${modal_id}`).classList.add('modal-is-open');
-        } else {
-            // Automaticlly get the opned modal ID
-            let modal_id = elem_trigger.closest('.modal-wrapper').getAttribute('id');
-            document.getElementById(`${modal_id}`).classList.remove('modal-is-open');
-        }
-    });
-}
-
-
 // Check if there is modals on the page
 if (document.querySelector('.modal-wrapper'))
 {
@@ -51,3 +48,55 @@ if (document.querySelector('.modal-wrapper'))
         toggleModal('remove', btn);
     });
 }
+    
+
+function geraASIDE(tela){
+    let List = [
+        {
+            "link": "../home/home.html",
+            "nome": "Início",
+            "icone": ``
+        },
+
+        {
+            "link": "../orgaos/orgaos.html",
+            "nome": "Órgãos",
+            "icone": ``
+        },
+
+        {
+            "link": "../tipos/tipos.html",
+            "nome": "Tipos",
+            "icone": ``
+        }
+    ]
+
+
+
+    let html = `<ul class="list-reset flex flex-col">`
+    List.forEach((elem) =>{
+        let ativo = elem.link.indexOf(tela) > 0 ? "bg-white" : ""
+
+        html = html + `
+            <li class=" w-full h-full py-3 px-2 border-b border-light-border ${ativo}">
+                <a href="${elem.link}"
+                    class="font-sans font-hairline 
+                            hover:font-normal text-sm text-nav-item no-underline">
+                    ${elem.icone}
+                    ${elem.nome}
+                    <span><i class="fas fa-angle-right float-right"></i></span>
+                </a>
+            </li>
+        `
+    })
+
+    html = html + "</ul>"
+
+
+    $("aside").html(html)
+}
+
+$(document).ready(() =>{
+    let tela = window.location.pathname.split("/")
+    geraASIDE(tela[tela.length-1])
+})
