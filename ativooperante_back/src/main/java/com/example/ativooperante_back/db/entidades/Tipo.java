@@ -5,13 +5,15 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
 
 @Entity
 @Table(name="AO_TIPO")
 public class Tipo {
     @Id
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    @GeneratedValue(strategy=GenerationType.SEQUENCE, generator = "SEQ_TIPO")
+    @SequenceGenerator(name ="SEQ_TIPO", sequenceName = "SEQ_AO_TIPO", allocationSize = 1)
     @Column(name="TIP_ID")
     private Long id;
 
