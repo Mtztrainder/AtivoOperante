@@ -24,17 +24,16 @@ public class Feedback {
     private String texto;
     
     @OneToOne(fetch = FetchType.LAZY) 
-    @JoinColumn(name="DEN_ID", nullable=false)  
+    @JoinColumn(name="DEN_ID")  
     private Denuncia denuncia;
 
     public Feedback() {
-        this(0L, "", null);
+        this(0L, "");
     }
 
-    public Feedback(Long id, String texto, Denuncia denuncia) {
+    public Feedback(Long id, String texto) {
         this.id = id;
         this.texto = texto;
-        this.denuncia = denuncia;
     }
 
     public Long getId() {

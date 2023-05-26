@@ -50,11 +50,11 @@ public class Denuncia {
     private Feedback feedback;
 
     public Denuncia() {
-        this(0L, null, "", "", 0, null, null, null, null);
+        this(0L, null, "", "", 0, null, null, null);
     }
 
     public Denuncia(Long id, LocalDateTime dtCriacao, String titulo, String texto, int urgencia, Orgao orgao,
-            Tipo tipo, Usuario usuario, Feedback feedback) {
+            Tipo tipo, Usuario usuario) {
         this.id = id;
         this.dtCriacao = dtCriacao;
         this.titulo = titulo;
@@ -63,8 +63,6 @@ public class Denuncia {
         this.orgao = orgao;
         this.tipo = tipo;
         this.usuario = usuario;
-        this.feedback = feedback;
-
     }
 
     
