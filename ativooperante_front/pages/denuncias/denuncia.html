@@ -12,19 +12,18 @@
     <link rel="stylesheet" href="../../css/stlye.css">
     <link rel="stylesheet" href="../../css/all.css">
 
-
     <!-- JavaScript -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script src="https://code.jquery.com/jquery-3.7.0.min.js" integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
-    
-    <script defer src="../../utils/util.js"></script>
-    <script src="../../controller/OrgaoController.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js"
+        integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
 
+    <script defer src="../../utils/util.js"></script>
+    <script src="../../controller/DenunciaController.js"></script>
     <title>Ativo Operante</title>
 </head>
 
-<body onload="LoadTable()">
+<body>
     <!--Container -->
     <div class="mx-auto bg-grey-400">
         <!--Screen-->
@@ -37,9 +36,6 @@
                         <h1 class="text-white p-2">Logo</h1>
                     </div>
                     <div class="p-1 flex flex-row items-center">
-
-
-
                         <img onclick="profileToggle()" class="inline-block h-8 w-8 rounded-full"
                             src="https://avatars0.githubusercontent.com/u/4323180?s=460&v=4" alt="">
                         <a href="#" onclick="profileToggle()"
@@ -67,18 +63,20 @@
 
             <div class="flex flex-1">
                 <!--Sidebar-->
-                <aside id="sidebar"
+                <!-- <aside id="sidebar"
                     class="bg-side-nav w-1/2 md:w-1/6 lg:w-1/6 border-r border-side-nav hidden md:block lg:block">
-
-                </aside>
+                </aside> -->
                 <!--/Sidebar-->
                 <!--Main-->
                 <main class="bg-white-300 flex-1 p-3 overflow-hidden">
+
+                
+
                     <div id="set-modal">
-                        
+
                     </div>
                     <div class="w-full">
-                        <h1>Orgãos</h1>
+                        <h1>Denuncia</h1>
                     </div>
 
                     <div class="flex flex-row mt-5 items-center">
@@ -89,28 +87,27 @@
                             </label>
                             <input id="filtro" oninput="Filtrar()"
                                 class="appearance-none block w-full bg-gray-200 text-gray-700 border border-2 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
-                                id="grid-first-name" type="text" placeholder="Buscar Orgãos">
+                                id="grid-first-name" type="text" placeholder="Buscar Denuncia">
 
                         </div>
                         <div class="w-2/12  px-3 mb-6 md:mb-0">
-                            <button  class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full" onclick="OpenModal();">
-                                Novo Orgão
+                            <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full"
+                                onclick="OpenModal();">
+                                Nova Denuncia
                             </button>
                         </div>
 
                     </div>
-                    
-                    <div id="tabela" class="mt-5 flex-none" >
+
+                    <div id="tabela" class="mt-5 flex-none">
 
                     </div>
-
-
                 </main>
                 <!--/Main-->
             </div>
             <!--Footer-->
             <footer class="bg-grey-darkest text-white p-2">
-                <div class="flex flex-1 mx-auto">&copy; My Design</div>
+                <div class="flex flex-1 mx-auto">&copy; B&G</div>
             </footer>
             <!--/footer-->
 
