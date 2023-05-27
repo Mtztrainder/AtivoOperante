@@ -2,6 +2,8 @@ package com.example.ativooperante_back.security.filters;
 
 import java.io.IOException;
 
+import org.springframework.web.bind.annotation.CrossOrigin;
+
 import com.example.ativooperante_back.security.JWTTokenProvider;
 
 import io.jsonwebtoken.Claims;
@@ -12,13 +14,16 @@ import jakarta.servlet.ServletRequest;
 import jakarta.servlet.ServletResponse;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-
+@CrossOrigin
 public class AccessFilter implements Filter {
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
             throws IOException, ServletException {
+                
         HttpServletRequest req = (HttpServletRequest) request;
         String token = req.getHeader("Authorization"); 
+        System.out.println(token);
+
         if(token!=null && JWTTokenProvider.verifyToken(token))
         {   
             Claims claims=JWTTokenProvider.getAllClaimsFromToken(token);
@@ -26,8 +31,10 @@ public class AccessFilter implements Filter {
             request.setAttribute("nivel", ""+nivel);
             chain.doFilter(request, response);    
         }
-        else
+        else {
             ((HttpServletResponse)response).setStatus(500);
             response.getOutputStream().write("Não autorizado ".getBytes()); 
+        }
+
     }
 }

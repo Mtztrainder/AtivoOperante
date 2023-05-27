@@ -10,7 +10,13 @@ async function LoadTable(busca) {
     }
     
     const URL_TO_FETCH = url
-    const dados = await fetch(URL_TO_FETCH, { method: 'GET' }).then(res => {
+    const dados = await fetch(URL_TO_FETCH, 
+    { 
+        method: 'GET', 
+        headers: {
+            'Authorization': `${localStorage.getItem("token")}`
+        }
+    }).then(res => {
         return res.json()
     });
 
@@ -121,6 +127,7 @@ async function Salvar() {
     const formJSON = Object.fromEntries(data.entries());
 
     var myHeaders = new Headers();
+    myHeaders.append("Authorization", `${localStorage.getItem("token")}`)
     myHeaders.append("Content-Type", "application/json");
     
     var raw = JSON.stringify(formJSON);
@@ -152,7 +159,13 @@ async function Deletar(id, nome){
         denyButtonText: `Cancelar`,
     }).then(async (result) => {
         if (result.isConfirmed) {
-            const dados = await fetch(URL_TO_FETCH, {method: 'GET'}).then(res => {
+            const dados = await fetch(URL_TO_FETCH, 
+                { 
+                    method: 'GET', 
+                    headers: {
+                        'Authorization': `${localStorage.getItem("token")}`
+                    }
+                }).then(res => {
                 return res.text()
             });
         

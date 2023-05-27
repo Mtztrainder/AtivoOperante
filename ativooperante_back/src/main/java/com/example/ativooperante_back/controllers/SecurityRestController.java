@@ -20,17 +20,17 @@ public class SecurityRestController {
     private UsuarioRepository usuarioDAO;
 
     @GetMapping("login")
-    public ResponseEntity <Object> logar(String usuario, String senha)
+    public ResponseEntity <Object> logar(String email, String senha)
     {
         String token="";
         Usuario us=null;
-        us=usuarioDAO.findByEmail(usuario);
+        us=usuarioDAO.findByEmail(email);
         
         if(us!=null)
         {   
-            if(us.getEmail().equals(usuario) && us.getSenha().equals(senha))
+            if(us.getEmail().equals(email) && us.getSenha().equals(senha))
             {
-                token = JWTTokenProvider.getToken(usuario,us.getNivel());
+                token = JWTTokenProvider.getToken(email, us.getNivel());
                 return ResponseEntity.ok(token);
             }
         }

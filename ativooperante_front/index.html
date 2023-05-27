@@ -1,15 +1,28 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
     <link rel="stylesheet" href="css/stlye.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+        integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+
+    <!-- Javascript -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js"
+        integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
+    
+    <script src="controller/IndexController.js"></script>
 
     <title>Login</title>
 </head>
+
 <body>
     <div class="lg:flex">
         <div class="lg:w-1/2 xl:max-w-screen-sm">
@@ -18,17 +31,20 @@
                     <div>
                         <i class="fa-solid fa-bullhorn fa-beat-fade text-4xl" style="color: #eb6a00;"></i>
                     </div>
-                    <div class="text-4xl  tracking-wide ml-2 font-semibold text-orange-default" >Ativo Operante</div>
+                    <div class="text-4xl  tracking-wide ml-2 font-semibold text-orange-default">Ativo Operante</div>
                 </div>
             </div>
             <div class="mt-10 px-12 sm:px-24 md:px-48 lg:px-12 lg:mt-16 xl:px-24 xl:max-w-2xl">
                 <h2 class="text-center text-4xl text-orange-default font-display font-semibold lg:text-left xl:text-5xl
                 xl:text-bold">Log in</h2>
                 <div class="mt-12">
-                    <form>
+                    <form id="form-login" enctype="multipart/form-data">
                         <div>
                             <div class="text-sm font-bold text-gray-700 tracking-wide">E-mail</div>
-                            <input class="w-full text-lg py-2 border-b border-gray-300 focus:outline-none focus:border-orange-500" type="" placeholder="mail@mail.com">
+                            <input
+                                id="email"
+                                class="w-full text-lg py-2 border-b border-gray-300 focus:outline-none focus:border-orange-500"
+                                type="email" placeholder="mail@mail.com">
                         </div>
                         <div class="mt-8">
                             <div class="flex justify-between items-center">
@@ -38,22 +54,25 @@
                                 <div>
                                     <a class="text-xs font-display font-semibold text-orange-default hover:text-orange-600
                                     cursor-pointer">
-                                       Esqueci minha senha?
+                                        Esqueci minha senha?
                                     </a>
                                 </div>
                             </div>
-                            <input class="w-full text-lg py-2 border-b border-gray-300 focus:outline-none focus:border-orange-500" type="" placeholder="Informe sua senha">
+                            <input id="senha"
+                                class="w-full text-lg py-2 border-b border-gray-300 focus:outline-none focus:border-orange-500"
+                                type="password" placeholder="Informe sua senha">
                         </div>
                         <div class="mt-10">
                             <button class="bg-orange-500 text-gray-100 p-4 w-full rounded-full tracking-wide
                             font-semibold font-display focus:outline-none focus:shadow-outline hover:bg-orange-600
-                            shadow-lg">
+                            shadow-lg" type="button" onclick="logar()">
                                 Log In
                             </button>
                         </div>
                     </form>
                     <div class="mt-12 text-sm font-display font-semibold text-gray-700 text-center">
-                       Não possui uma conta? <a class="cursor-pointer text-orange-default hover:text-orange-600" href="pages/signup/signup.html">Cadastre-se</a>
+                        Não possui uma conta? <a class="cursor-pointer text-orange-default hover:text-orange-600"
+                            href="pages/signup/signup.html">Cadastre-se</a>
                     </div>
                 </div>
             </div>
@@ -64,9 +83,11 @@
             </div>
         </div>
     </div>
-  
+
 
 </body>
+
 </html>
 </body>
+
 </html>
