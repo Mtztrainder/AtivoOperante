@@ -22,7 +22,7 @@ public class AccessFilter implements Filter {
                 
         HttpServletRequest req = (HttpServletRequest) request;
         String token = req.getHeader("Authorization"); 
-        System.out.println(token);
+        
         if (req.getMethod().equals("OPTIONS")){
             chain.doFilter(request, response);
         }else{
