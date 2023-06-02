@@ -17,8 +17,8 @@ public interface DenunciaRepository extends JpaRepository<Denuncia, Long> {
 
     @Modifying
     @Transactional
-    @Query(value="INSERT INTO AO_FEEDBACK (DEN_ID, FEE_TEXTO) VALUES (:DEN_ID, :TEXTO)", nativeQuery = true)
-    void addFeedback(@Param("DEN_ID") Long den_id, @Param("TEXTO") String texto);
+    @Query(value="INSERT into ao_feedback (fee_id, fee_texto, den_id) VALUES (SEQ_AO_FEEDBACK.NEXTVAL, :texto,:den_id)",nativeQuery = true)
+    void addFeedback(@Param("den_id") Long den_id, @Param("texto") String texto);
     
 
 

@@ -4,9 +4,9 @@ async function LoadTable(busca) {
 
     let url
     if (busca != null && busca != "") {
-        url = "http://localhost:8080/apis/cidadao/get-denuncia-titulo/1/" + busca
+        url = `http://localhost:8080/apis/cidadao/get-denuncia-titulo/${atob(localStorage.getItem("id"))}/${busca}` 
     } else {
-        url = "http://localhost:8080/apis/cidadao/get-denuncia/1";
+        url = `http://localhost:8080/apis/cidadao/get-denuncia/${atob(localStorage.getItem("id"))}`;
     }
 
     const URL_TO_FETCH = url
