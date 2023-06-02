@@ -48,31 +48,34 @@ async function LoadTable(busca) {
     <tbody class="bg-grey-300 flex flex-col items-center justify-between overflow-y-scroll w-full" style="max-height: 50vh;">
     `;
     dados.forEach(denuncia => {
-        html += `
-        <tr class="flex w-full hover:bg-gray-100 hover:bg-gray-200">
-            <td class="p-4 w-1/12 text-base font-medium text-gray-900 whitespace-nowrap text-white">${denuncia.id}</td>   
-            <td class="p-4 truncate w-2/12 text-base font-medium text-gray-900 whitespace-nowrap text-white">${denuncia.titulo}</td>   
-            <td class="p-4 w-1/12 text-base font-medium text-gray-900 whitespace-nowrap text-white">${denuncia.urgencia}</td>   
-            <td class="p-4 w-2/12 text-base font-medium text-gray-900 whitespace-nowrap text-white">${getFormattedDateTime(denuncia.dtCriacao)}</td>   
-            <td class="p-4 w-2/12 text-base font-medium text-gray-900 whitespace-nowrap text-white">${denuncia.orgao.nome}</td>            
-            <td class="p-4 w-2/12 text-base font-medium text-gray-900 whitespace-nowrap text-white">${getFeedBack(denuncia.feedback)}</td>
-            <td class="p-4 w-2/12 space-x-2 whitespace-nowrap text-center">
-                <button type="button" 
-                    data-modal-toggle="edit-user-modal" 
-                    class="inline-flex items-center px-2 py-2 text-sm font-medium 
-                    text-center text-white 
-                    rounded-lg bg-blue-700 
-                    hover:bg-blue-800 focus:ring-4 focus:ring-primary-300 bg-primary-600 hover:bg-primary-700 focus:ring-primary-800" onclick="Feedback(${denuncia.id});">
-                    <i class="fa-solid fa-comment text-white h-4 w-4 "></i>
-                </button>
-                <button type="button" data-modal-toggle="delete-user-modal" class="inline-flex items-center px-2 py-2 text-sm font-medium text-center text-white bg-red-600 rounded-lg hover:bg-red-800 focus:ring-4 focus:ring-red-300 focus:ring-red-900" onclick="Deletar(${denuncia.id}, '${denuncia.titulo}')" >
-                <i class="fa-solid fa-trash text-white"></i>
-                </button>
-                
-            </td>
-        </tr>
-    
-        `
+        if(denuncia.feedback == null){
+            html += `
+            <tr class="flex w-full hover:bg-gray-100 hover:bg-gray-200">
+                <td class="p-4 w-1/12 text-base font-medium text-gray-900 whitespace-nowrap text-white">${denuncia.id}</td>   
+                <td class="p-4 truncate w-2/12 text-base font-medium text-gray-900 whitespace-nowrap text-white">${denuncia.titulo}</td>   
+                <td class="p-4 w-1/12 text-base font-medium text-gray-900 whitespace-nowrap text-white">${denuncia.urgencia}</td>   
+                <td class="p-4 w-2/12 text-base font-medium text-gray-900 whitespace-nowrap text-white">${getFormattedDateTime(denuncia.dtCriacao)}</td>   
+                <td class="p-4 w-2/12 text-base font-medium text-gray-900 whitespace-nowrap text-white">${denuncia.orgao.nome}</td>            
+                <td class="p-4 w-2/12 text-base font-medium text-gray-900 whitespace-nowrap text-white">${getFeedBack(denuncia.feedback)}</td>
+                <td class="p-4 w-2/12 space-x-2 whitespace-nowrap text-center">
+                    <button type="button" 
+                        data-modal-toggle="edit-user-modal" 
+                        class="inline-flex items-center px-2 py-2 text-sm font-medium 
+                        text-center text-white 
+                        rounded-lg bg-blue-700 
+                        hover:bg-blue-800 focus:ring-4 focus:ring-primary-300 bg-primary-600 hover:bg-primary-700 focus:ring-primary-800" onclick="Feedback(${denuncia.id});">
+                        <i class="fa-solid fa-comment text-white h-4 w-4 "></i>
+                    </button>
+                    <button type="button" data-modal-toggle="delete-user-modal" class="inline-flex items-center px-2 py-2 text-sm font-medium text-center text-white bg-red-600 rounded-lg hover:bg-red-800 focus:ring-4 focus:ring-red-300 focus:ring-red-900" onclick="Deletar(${denuncia.id}, '${denuncia.titulo}')" >
+                    <i class="fa-solid fa-trash text-white"></i>
+                    </button>
+                    
+                </td>
+            </tr>
+        
+            `
+        }
+       
     });
     html += `</tbody>
             </table>`;
@@ -98,8 +101,8 @@ function getFormattedDateTime(datac) {
 
 function getFeedBack(feedback) {
     let str = "Não possui feedback";
-    if (feedback != undefined && feedback != null && feedback.length > 0) {
-        str = feedback;
+    if (feedback != undefined && feedback != null && feedback.texto.length > 0) {
+        str = feedback.texto;
     }
     return str;
 }
