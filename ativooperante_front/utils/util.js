@@ -18,11 +18,13 @@ function toggleModal(action, elem_trigger)
 
 var sidebar = document.getElementById('sidebar');
 
-function sidebarToggle() {
+function sidebarToggle(icon) {
     if (sidebar.style.display === "none") {
         sidebar.style.display = "block";
+        icon.className = "fa-solid fa-x pr-2 text-white"
     } else {
         sidebar.style.display = "none";
+        icon.className = "fas fa-bars pr-2 text-white"
     }
 }
 
@@ -100,3 +102,9 @@ $(document).ready(() =>{
     let tela = window.location.pathname.split("/")
     geraASIDE(tela[tela.length-1])
 })
+
+
+async function AtualizaUsuarioLogado() {
+   
+    $("#usu_name").html(atob(localStorage.getItem("nome")));
+}

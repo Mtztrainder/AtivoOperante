@@ -15,6 +15,8 @@ import com.example.ativooperante_back.db.repository.DenunciaRepository;
 import com.example.ativooperante_back.db.repository.OrgaoRepository;
 import com.example.ativooperante_back.db.repository.TipoRepository;
 
+import jakarta.servlet.http.HttpServletRequest;
+
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
@@ -29,6 +31,10 @@ public class CidadaoRestController {
     TipoRepository tiporepo;
     @Autowired
     DenunciaRepository denunciarepo;
+
+    @Autowired
+    HttpServletRequest request;
+    
 
     @GetMapping("get-orgaos")
     public ResponseEntity<Object> getOrgaos()
@@ -62,9 +68,16 @@ public class CidadaoRestController {
         return ResponseEntity.ok().body(denunciarepo.findAllByUsuario(usuario));
     }
 
+    @GetMapping("get-denuncia-titulo/{id_usu}/{titulo}")
+    public ResponseEntity<Object> getDenunciaTitulo(@PathVariable(value = "id_usu") long id_usu, @PathVariable(value = "titulo")  String titulo)
+    {
+        Usuario usuario = new Usuario();
+        usuario.setId(id_usu);                
+        return ResponseEntity.ok().body(denunciarepo.findAllByUsuarioAndTituloContainingIgnoreCaseOrderByTituloAsc(usuario, titulo));
+    }
+
     @PostMapping("add-denuncia")
-    public ResponseEntity<Object> addDenuncia(@RequestBody Denuncia denuncia) {
-                
+    public ResponseEntity<Object> addDenuncia(@RequestBody Denuncia denuncia) {        
         return ResponseEntity.ok().body(denunciarepo.save(denuncia));
     }
     

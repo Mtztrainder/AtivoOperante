@@ -1,3 +1,4 @@
+
 async function logar(){
     const URL_TO_FETCH = `http://localhost:8080/security/login?email=${$("#email").val()}&senha=${$("#senha").val()}`  
     
@@ -8,9 +9,9 @@ async function logar(){
             else 
                 throw Error("erro")
         })
-        .then(result => {
+        .then( async (result) =>  {
             localStorage.setItem("token", result);
-            localStorage.setItem("login", btoa($("#email").val()))
+            localStorage.setItem("login", btoa($("#email").val()))            
             window.location.href = 'pages/home/home.html'
         })
         .catch(err => {

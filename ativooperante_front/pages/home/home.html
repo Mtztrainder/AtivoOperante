@@ -9,6 +9,9 @@
         content="tailwind,tailwindcss,tailwind css,css,starter template,free template,admin templates, admin template, admin dashboard, free tailwind templates, tailwind example">
     <!-- Css -->
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,400i,600,600i,700,700i" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+        integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="../../css/stlye.css">
     <link rel="stylesheet" href="../../css/all.css">
 
@@ -18,10 +21,11 @@
     <script src="https://code.jquery.com/jquery-3.7.0.min.js" integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
 
     <script defer src="../../utils/util.js"></script>
+    <script src="../../controller/HomeController.js"></script>
     <title>Ativo Operante</title>
 </head>
 
-<body>
+<body onload="setUsuario(); LoadTable();AtualizaUsuarioLogado()">
     <!--Container -->
     <div class="mx-auto bg-grey-400">
         <!--Screen-->
@@ -30,14 +34,14 @@
             <header class="bg-nav">
                 <div class="flex justify-between">
                     <div class="p-1 mx-3 inline-flex items-center">
-                        <i class="fas fa-bars pr-2 text-white" onclick="sidebarToggle()"></i>
-                        <h1 class="text-white p-2">Logo</h1>
+                        <i class="fa-solid fa-x pr-2 text-white" onclick="sidebarToggle(this)"></i>
+                        <h1 class="text-white p-2 text-2xl">Ativo Operante</h1>
                     </div>
                     <div class="p-1 flex flex-row items-center">                        
                         <img onclick="profileToggle()" class="inline-block h-8 w-8 rounded-full"
-                            src="https://avatars0.githubusercontent.com/u/4323180?s=460&v=4" alt="">
-                        <a href="#" onclick="profileToggle()"
-                            class="text-white p-2 no-underline hidden md:block lg:block">Adam Wathan</a>
+                            src="https://gravatar.com/avatar/3cb5314fd46ae979cf86f95372ad2756?s=200&d=mp&r=x" alt="">
+                            <a href="#"  id="usu_name" onclick="profileToggle()"
+                            class="text-white p-2 no-underline hidden md:block lg:block"></a>
                         <div id="ProfileDropDown"
                             class="rounded hidden shadow-md bg-white absolute pin-t mt-12 mr-1 pin-r">
                             <ul class="list-reset">
@@ -68,8 +72,30 @@
                 <!--Main-->
                 <main class="bg-white-300 flex-1 p-3 overflow-hidden">
                     
-                    <h1>INICIO</h1>
-                    
+                    <h1>Inicio</h1>
+                    <div id="set-modal">
+
+                    </div>
+                   
+
+                    <div class="flex flex-row mt-5 items-center">
+                        <div class="w-10/12  px-3 mb-6 md:mb-0">
+                            <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"
+                                for="grid-first-name">
+                                Filtro
+                            </label>
+                            <input id="filtro" oninput="Filtrar()"
+                                class="appearance-none block w-full bg-gray-200 text-gray-700 border border-2 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white"
+                                id="grid-first-name" type="text" placeholder="Buscar Denuncia">
+
+                        </div>
+                      
+
+                    </div>
+
+                    <div id="tabela" class="mt-5 flex-none">
+
+                    </div>
                 </main>
                 <!--/Main-->
             </div>

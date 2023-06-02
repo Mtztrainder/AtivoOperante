@@ -39,27 +39,27 @@ public class AdminRestController {
     @GetMapping("get-orgaos")
     public ResponseEntity<Object> getOrgaos()
     {
-        String nivel = (String)request.getAttribute("nivel");
+        String nivel = (String)request.getAttribute("nivel").toString();
         return ResponseEntity.ok().body(orgaorepo.findAll(Sort.by("nome")));
     }
 
     @GetMapping("get-orgaos-nome/{nome}")
     public ResponseEntity<Object> getOrgaos(@PathVariable(value = "nome") String nome)
     {
-        String nivel = (String)request.getAttribute("nivel");
+        String nivel = (String)request.getAttribute("nivel").toString();
         return ResponseEntity.ok().body(orgaorepo.findAllByNomeLikeIgnoreCaseOrderByNomeAsc('%'+nome+'%'));
     }
 
     @PostMapping("save-orgao")
     public ResponseEntity <Object> saveOrgao(@RequestBody Orgao orgao){
-        String nivel = (String)request.getAttribute("nivel");
+        String nivel = (String)request.getAttribute("nivel").toString();
 
         return ResponseEntity.ok().body(orgaorepo.save(orgao));
     }
     
     @GetMapping("del-orgao/{id}")
     public ResponseEntity <Object> deleteOrgao(@PathVariable(value = "id") long id){
-        String nivel = (String)request.getAttribute("nivel");
+        String nivel = (String)request.getAttribute("nivel").toString();
 
         try{
             if (!orgaorepo.existsById(id))
@@ -77,7 +77,7 @@ public class AdminRestController {
     @GetMapping("get-tipos")
     public ResponseEntity<Object> getTipos()
     {
-        String nivel = (String)request.getAttribute("nivel");
+        String nivel = (String)request.getAttribute("nivel").toString();
 
         return ResponseEntity.ok().body(tiporepo.findAll(Sort.by("nome")));
     }
@@ -85,19 +85,19 @@ public class AdminRestController {
     @GetMapping("get-tipos-nome/{nome}")
     public ResponseEntity<Object> getTipos(@PathVariable(value = "nome") String nome)
     {
-        String nivel = (String)request.getAttribute("nivel");
+        String nivel = (String)request.getAttribute("nivel").toString();
         return ResponseEntity.ok().body(tiporepo.findAllByNomeLikeIgnoreCaseOrderByNomeAsc('%'+nome+'%'));
     }
 
     @PostMapping("save-tipo")
     public ResponseEntity <Object> saveTipo(@RequestBody Tipo tipo){
-        String nivel = (String)request.getAttribute("nivel");
+        String nivel = (String)request.getAttribute("nivel").toString();
         return ResponseEntity.ok().body(tiporepo.save(tipo));
     }
 
     @GetMapping("del-tipo/{id}")
     public ResponseEntity <Object> deleteTipo(@PathVariable(value = "id") long id){
-        String nivel = (String)request.getAttribute("nivel");
+        String nivel = (String)request.getAttribute("nivel").toString();
         try{
             if (!tiporepo.existsById(id))
                 return ResponseEntity.badRequest().body("codigo não existe");
@@ -114,7 +114,7 @@ public class AdminRestController {
     public ResponseEntity <Object> addFeedback(@PathVariable(value="den_id") Long den_id,
                                                 @PathVariable(value="texto") String texto)
     {
-        if(request.getAttribute("nivel").equals("0"))
+        if(request.getAttribute("nivel").toString().equals("0"))
         {
             try{
                 denunciarepo.addFeedback(den_id, texto);
@@ -129,7 +129,7 @@ public class AdminRestController {
 
     @GetMapping("del-denuncia/{id}")
     public ResponseEntity <Object> delDenuncia(@PathVariable(value = "id") long id){
-        String nivel = (String)request.getAttribute("nivel");
+        String nivel = (String)request.getAttribute("nivel").toString();
         try{
             if (!denunciarepo.existsById((long) id))
                 return ResponseEntity.badRequest().body("codigo não existe");
@@ -140,5 +140,21 @@ public class AdminRestController {
         }
 
         return ResponseEntity.ok().body("deletado com sucesso");
+    }
+
+    @GetMapping("get-denuncias")
+    public ResponseEntity<Object> getDenuncias()
+    {
+        String nivel = (String)request.getAttribute("nivel").toString();
+
+        return ResponseEntity.ok().body(denunciarepo.findAll(Sort.by("titulo")));
+    }
+
+    @GetMapping("get-denuncias-id/{id}")
+    public ResponseEntity<Object> getDenunciasId(@PathVariable(value = "id") long id)
+    {
+        String nivel = (String)request.getAttribute("nivel").toString();
+
+        return ResponseEntity.ok().body(denunciarepo.findById(id));
     }
 }

@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import org.springframework.web.bind.annotation.CrossOrigin;
 
+import com.example.ativooperante_back.db.entidades.Usuario;
 import com.example.ativooperante_back.security.JWTTokenProvider;
 
 import io.jsonwebtoken.Claims;
@@ -30,8 +31,12 @@ public class AccessFilter implements Filter {
             if(token!=null && JWTTokenProvider.verifyToken(token))
             {   
                 Claims claims=JWTTokenProvider.getAllClaimsFromToken(token);
-                int nivel = (Integer)claims.get("nivel");
-                request.setAttribute("nivel", ""+nivel);
+                int nivel = (Integer) claims.get("nivel");
+                int id = (Integer) claims.get("id");
+                String nome = (String)claims.get("nome");
+                request.setAttribute("nivel", nivel);
+                request.setAttribute("id", id);
+                request.setAttribute("nome", nome);
                 chain.doFilter(request, response);    
             }
             else {

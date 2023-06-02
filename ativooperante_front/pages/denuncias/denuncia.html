@@ -9,6 +9,9 @@
         content="tailwind,tailwindcss,tailwind css,css,starter template,free template,admin templates, admin template, admin dashboard, free tailwind templates, tailwind example">
     <!-- Css -->
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,400i,600,600i,700,700i" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+        integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="../../css/stlye.css">
     <link rel="stylesheet" href="../../css/all.css">
 
@@ -23,7 +26,7 @@
     <title>Ativo Operante</title>
 </head>
 
-<body>
+<body onload="LoadTable();AtualizaUsuarioLogado();">
     <!--Container -->
     <div class="mx-auto bg-grey-400">
         <!--Screen-->
@@ -32,27 +35,24 @@
             <header class="bg-nav">
                 <div class="flex justify-between">
                     <div class="p-1 mx-3 inline-flex items-center">
-                        <i class="fas fa-bars pr-2 text-white" onclick="sidebarToggle()"></i>
-                        <h1 class="text-white p-2">Logo</h1>
+                        
+                        <h1 class="text-white p-2 text-2xl">Ativo Operante</h1>
                     </div>
                     <div class="p-1 flex flex-row items-center">
                         <img onclick="profileToggle()" class="inline-block h-8 w-8 rounded-full"
-                            src="https://avatars0.githubusercontent.com/u/4323180?s=460&v=4" alt="">
-                        <a href="#" onclick="profileToggle()"
-                            class="text-white p-2 no-underline hidden md:block lg:block">Adam Wathan</a>
+                            src="https://gravatar.com/avatar/3cb5314fd46ae979cf86f95372ad2756?s=200&d=mp&r=x" alt="">
+                        <a href="#"  id="usu_name" onclick="profileToggle()"
+                            class="text-white p-2 no-underline hidden md:block lg:block"></a>
                         <div id="ProfileDropDown"
-                            class="rounded hidden shadow-md bg-white absolute pin-t mt-12 mr-1 pin-r">
+                            class="rounded hidden shadow-md bg-white absolute pin-t mt-28 mr-1 pin-r">
                             <ul class="list-reset">
                                 <li><a href="#" class="no-underline px-4 py-2 block text-black hover:bg-grey-light">My
-                                        account</a></li>
-                                <li><a href="#"
-                                        class="no-underline px-4 py-2 block text-black hover:bg-grey-light">Notifications</a>
-                                </li>
+                                        account</a></li>                               
                                 <li>
                                     <hr class="border-t mx-2 border-grey-ligght">
                                 </li>
                                 <li><a href="#"
-                                        class="no-underline px-4 py-2 block text-black hover:bg-grey-light">Logout</a>
+                                        class="no-underline px-4 py-2 block text-black hover:bg-grey-light">Sair</a>
                                 </li>
                             </ul>
                         </div>

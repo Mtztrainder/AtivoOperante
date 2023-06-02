@@ -14,6 +14,8 @@ public class FilterConfiguration {
         register.setFilter(new AccessFilter());
         // definindo as URLs para aplicar o filtro
         register.addUrlPatterns("/apis/*");
+        register.addUrlPatterns("/security/get-id-usuario");
+        register.addUrlPatterns("/security/get-nome-usuario");
         return register;
     }
 }

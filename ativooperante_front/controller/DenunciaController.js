@@ -4,52 +4,60 @@ async function LoadTable(busca) {
 
     let url
     if (busca != null && busca != "") {
-        url = "http://localhost:8080/apis/admin/get-orgaos-nome/" + busca
+        url = "http://localhost:8080/apis/cidadao/get-denuncia-titulo/1/" + busca
     } else {
-        url = "http://localhost:8080/apis/admin/get-orgaos"
+        url = "http://localhost:8080/apis/cidadao/get-denuncia/1";
     }
 
     const URL_TO_FETCH = url
-
-    const dados = await fetch(URL_TO_FETCH, { method: 'GET' }).then(res => {
+    var myHeaders = new Headers();
+    myHeaders.append("Content-Type", "application/json");
+    myHeaders.append("Authorization", localStorage.getItem("token"));
+    const dados = await fetch(URL_TO_FETCH, { method: 'GET', headers: myHeaders }).then(res => {
         return res.json()
     });
 
     html += `
+    <h1> Minhas Denuncias </h1>
     <table class="w-full divide-gray-600">
     <thead class="flex bg-gray-500">
         <tr class="flex w-full mb-4">
-            <th scope="col" class="p-4 w-3/12 text-xs font-medium text-left text-white uppercase text-gray-400">
+            <th scope="col" class="p-4 w-1/12 text-xs font-medium text-left text-white uppercase text-gray-400">
                 Código
             </th>
-            <th scope="col" class="p-4 w-5/12 text-xs font-medium text-left text-white uppercase text-gray-400">
-                Nome
+            <th scope="col" class="p-4 w-2/12 text-xs font-medium text-left text-white uppercase text-gray-400">
+                Titulo
+            </th>
+            <th scope="col" class="p-4 w-1/12 text-xs font-medium text-left text-white uppercase text-gray-400">
+                Urgência
             </th>    
-            <th scope="col" class="p-4 w-4/12 text-xs font-medium text-left text-white uppercase text-gray-400">
-                Ações
+            <th scope="col" class="p-4 w-2/12 text-xs font-medium text-left text-white uppercase text-gray-400">
+                Data de Criação
+            </th>               
+            <th scope="col" class="p-4 w-2/12 text-xs font-medium text-left text-white uppercase text-gray-400">
+                Orgão
+            </th>   
+            <th scope="col" class="p-4 w-2/12 text-xs font-medium text-left text-white uppercase text-gray-400">
+                Tipo
+            </th>   
+            <th scope="col" class="p-4 w-1/12 text-xs font-medium text-left text-white uppercase text-gray-400">
+                Feedback
             </th>
         </tr>
     </thead>
     <tbody class="bg-grey-300 flex flex-col items-center justify-between overflow-y-scroll w-full" style="max-height: 50vh;">
     `;
-    dados.forEach(orgao => {
+    dados.forEach(denuncia => {
         html += `
         <tr class="flex w-full hover:bg-gray-100 hover:bg-gray-200">
-            <td class="p-4 w-3/12 text-base font-medium text-gray-900 whitespace-nowrap text-white">${orgao.id}</td>   
-            <td class="p-4 w-5/12 text-base font-medium text-gray-900 whitespace-nowrap text-white">${orgao.nome}</td>   
-            <td class="p-4 w-4/12 space-x-2 whitespace-nowrap">
-                <button type="button" 
-                    data-modal-toggle="edit-user-modal" 
-                    class="inline-flex items-center px-2 py-2 text-sm font-medium 
-                    text-center text-white 
-                    rounded-lg bg-blue-700 
-                    hover:bg-blue-800 focus:ring-4 focus:ring-primary-300 bg-primary-600 hover:bg-primary-700 focus:ring-primary-800" onclick="Editar(${orgao.id}, '${orgao.nome}');">
-                    <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M17.414 2.586a2 2 0 00-2.828 0L7 10.172V13h2.828l7.586-7.586a2 2 0 000-2.828z"></path><path fill-rule="evenodd" d="M2 6a2 2 0 012-2h4a1 1 0 010 2H4v10h10v-4a1 1 0 112 0v4a2 2 0 01-2 2H4a2 2 0 01-2-2V6z" clip-rule="evenodd"></path></svg>
-                </button>
-                <button type="button" data-modal-toggle="delete-user-modal" class="inline-flex items-center px-2 py-2 text-sm font-medium text-center text-white bg-red-600 rounded-lg hover:bg-red-800 focus:ring-4 focus:ring-red-300 focus:ring-red-900" onclick="Deletar(${orgao.id}, '${orgao.nome}')" >
-                    <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z" clip-rule="evenodd"></path></svg>
-                </button>
-            </td>
+            <td class="p-4 w-1/12 text-base font-medium text-gray-900 whitespace-nowrap text-white">${denuncia.id}</td>   
+            <td class="p-4 truncate w-2/12 text-base font-medium text-gray-900 whitespace-nowrap text-white">${denuncia.titulo}</td>   
+            <td class="p-4 w-1/12 text-base font-medium text-gray-900 whitespace-nowrap text-white">${denuncia.urgencia}</td>   
+            <td class="p-4 w-2/12 text-base font-medium text-gray-900 whitespace-nowrap text-white">${getFormattedDateTime(denuncia.dtCriacao)}</td>   
+            <td class="p-4 w-2/12 text-base font-medium text-gray-900 whitespace-nowrap text-white">${denuncia.orgao.nome}</td>
+            <td class="p-4 w-2/12 text-base font-medium text-gray-900 whitespace-nowrap text-white">${denuncia.tipo.nome}</td>
+            <td class="p-4 w-2/12 text-base font-medium text-gray-900 whitespace-nowrap text-white">${getFeedBack(denuncia.feedback)}</td>
+            
         </tr>
     
         `
@@ -65,19 +73,27 @@ async function LoadTable(busca) {
 
 
 
-async function getOrgao(){
-    const URL_TO_FETCH = "http://localhost:8080/apis/cidadao/get-orgaos";    
+async function getOrgao() {
+    const URL_TO_FETCH = "http://localhost:8080/apis/cidadao/get-orgaos";
 
-    const dados = await fetch(URL_TO_FETCH, { method: 'GET' }).then(res => {
+    var myHeaders = new Headers();
+    myHeaders.append("Content-Type", "application/json");
+    myHeaders.append("Authorization", localStorage.getItem("token"));
+
+    const dados = await fetch(URL_TO_FETCH, { method: 'GET', headers: myHeaders }).then(res => {
         return res.json()
     });
     return dados;
 }
 
-async function getTipo(){
-    const URL_TO_FETCH = "http://localhost:8080/apis/cidadao/get-tipos";    
+async function getTipo() {
 
-    const dados = await fetch(URL_TO_FETCH, { method: 'GET' }).then(res => {
+    var myHeaders = new Headers();
+    myHeaders.append("Content-Type", "application/json");
+    myHeaders.append("Authorization", localStorage.getItem("token"));
+    const URL_TO_FETCH = "http://localhost:8080/apis/cidadao/get-tipos";
+
+    const dados = await fetch(URL_TO_FETCH, { method: 'GET', headers: myHeaders }).then(res => {
         return res.json()
     });
     return dados;
@@ -86,7 +102,7 @@ async function getTipo(){
 async function OpenModal() {
     let modalContent = "";
     let orgaos = await getOrgao();
-    let tipos = await getTipo();    
+    let tipos = await getTipo();
     modalContent = `   
     <div class="py-12 bg-gray-700 bg-opacity-80 transition duration-150 ease-in-out z-10 absolute top-0 right-0 bottom-0 left-0  flex flex-col justify-center items-center" id="modal">
     <div role="alert" class=" container align-center w-11/12 md:w-2/3 max-w-lg">
@@ -106,39 +122,39 @@ async function OpenModal() {
                     
                 
                     <label for="urgencia" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Urgência</label>
-                    <select id="urgencia" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                    <select id="urgencia" name="urgencia" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                       <option></option>
-                      <option>Não Urgente</option>
-                      <option>Pouco Urgente</option>
-                      <option>Urgente</option>
-                      <option>Muito Urgente</option>
-                      <option>Emergente</option>
+                      <option value='1'>Não Urgente</option>
+                      <option value='2'>Pouco Urgente</option>
+                      <option value='3'>Urgente</option>
+                      <option value='4'>Muito Urgente</option>
+                      <option value='5'>Emergente</option>
                     </select>
                     <label for="orgao" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Orgão</label>
                     <select id="orgao" name="orgao" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                     <option value=""> </option>
-                     ` 
-                     
-                        for(let i = 0;i < orgaos.length; i++){
-                            modalContent += `<option value=${orgaos[i].nome}> ${orgaos[i].nome} </option>`;
-                        }
-                        modalContent += 
-                    `
+                     `
+
+    for (let i = 0; i < orgaos.length; i++) {
+        modalContent += `<option value=${orgaos[i].id}> ${orgaos[i].nome} </option>`;
+    }
+    modalContent +=
+        `
                      
                     </select>
                     <label for="tipo" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Tipo do Problema</label>
                     <select id="tipo" name="tipo" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                     <option value=""> </option>
                       `
-                      for(let i = 0;i < tipos.length; i++){
-                        modalContent += `<option value=${tipos[i].nome}> ${tipos[i].nome} </option>`;
-                    }
-                    modalContent += 
-                      `
+    for (let i = 0; i < tipos.length; i++) {
+        modalContent += `<option value=${tipos[i].id}> ${tipos[i].nome} </option>`;
+    }
+    modalContent +=
+        `
                     </select>
                     
-                    <label for="descricao" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Descrição da denuncia</label>
-                    <textarea id="descricao" name="descricao" rows="4" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Descrição da denuncia"></textarea>
+                    <label for="texto" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Descrição da denuncia</label>
+                    <textarea id="texto" name="texto" rows="4" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Descrição da denuncia"></textarea>
 
                 <div class="relative mb-5 mt-2"> 
             </form>
@@ -174,14 +190,58 @@ function CloseModal() {
 
 
 async function Salvar() {
-    const URL_TO_FETCH = "http://localhost:8080/apis/admin/save-orgao"
-    const form = document.getElementById("form-orgao");
+    const URL_TO_FETCH = "http://localhost:8080/apis/cidadao/add-denuncia"
+    const form = document.getElementById("form-denuncia");
 
     const data = new FormData(form);
-    const formJSON = Object.fromEntries(data.entries());
+    // const formJSON = Object.fromEntries(data.entries());
+    let formJSON = {};
 
+    for (const [chave, valor] of data.entries()) {
+        if (chave != "orgao" && chave != "tipo") {
+            formJSON[chave] = valor;
+        }
+    }
+
+
+
+    const datac = new Date();
+
+
+
+
+
+
+    const dataFormatada = datac.toISOString();
+
+    formJSON.dtCriacao = dataFormatada;
+
+
+
+    let select = document.querySelector('select[name="orgao"]');
+    let selectedOption = select.options[select.selectedIndex];
+
+    formJSON.orgao = {
+        "id": selectedOption.value,
+        "nome": selectedOption.text
+    }
+
+    select = document.querySelector('select[name="tipo"]');
+    selectedOption = select.options[select.selectedIndex];
+    formJSON.tipo = {
+        "id": selectedOption.value,
+        "nome": selectedOption.text
+    }
+
+
+    formJSON.usuario = {
+        "id": atob(localStorage.getItem("id"))
+    }
+
+    console.log(formJSON);
     var myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
+    myHeaders.append("Authorization", localStorage.getItem("token"));
 
     var raw = JSON.stringify(formJSON);
 
@@ -201,50 +261,34 @@ async function Salvar() {
 }
 
 
-async function Deletar(id, nome) {
-    const URL_TO_FETCH = `http://localhost:8080/apis/admin/del-orgao/${id}`
-
-    Swal.fire({
-        title: 'Atenção',
-        html: `Deseja realmente excluir o órgão <b>${nome}</b>`,
-        showDenyButton: true,
-        confirmButtonText: 'Confirmar',
-        denyButtonText: `Cancelar`,
-    }).then(async (result) => {
-        if (result.isConfirmed) {
-            const dados = await fetch(URL_TO_FETCH, { method: 'GET' }).then(res => {
-                return res.text()
-            });
 
 
 
-            let icon = "error"
-            let title = "Erro ao deletar :("
-            let content = dados
-            if (dados == "deletado com sucesso") {
-                icon = "success"
-                title = "Sucesso :)"
-                content = "Sucesso ao deletar :D"
-            }
-
-            Swal.fire({
-                icon: icon,
-                title: title,
-                text: content
-            })
-
-            LoadTable($("#filtro").val())
-        }
-    })
-}
-
-
-async function Editar(id, nome) {
-    await OpenModal();
-    document.getElementById("id").value = id;
-    document.getElementById("nome").value = nome;
-}
 
 async function Filtrar() {
     LoadTable(event.target.value)
 }
+
+
+
+function getFormattedDateTime(datac) {
+    var data = new Date(datac);
+    var dia = String(data.getDate()).padStart(2, '0');
+    var mes = String(data.getMonth() + 1).padStart(2, '0');
+    var ano = String(data.getFullYear());
+    var horas = String(data.getHours()).padStart(2, '0');
+    var minutos = String(data.getMinutes()).padStart(2, '0');
+    var segundos = String(data.getSeconds()).padStart(2, '0');
+
+    return dia + '/' + mes + '/' + ano + ':' + horas + ':' + minutos + ':' + segundos;
+}
+
+function getFeedBack(feedback) {
+    let str = "Não possui feedback";
+    if (feedback != undefined && feedback != null && feedback.length > 0) {
+        str = feedback;
+    }
+    return str;
+}
+
+
