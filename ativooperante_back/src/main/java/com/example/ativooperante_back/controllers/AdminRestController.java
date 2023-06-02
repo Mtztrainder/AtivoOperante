@@ -150,6 +150,14 @@ public class AdminRestController {
         return ResponseEntity.ok().body(denunciarepo.findAll(Sort.by("titulo")));
     }
 
+    @GetMapping("get-denuncias-titulo/{titulo}")
+    public ResponseEntity<Object> getDenunciasTitulo(@PathVariable(value = "titulo") String titulo)
+    {
+        String nivel = (String)request.getAttribute("nivel").toString();
+
+        return ResponseEntity.ok().body(denunciarepo.findAllByTituloLikeIgnoreCaseOrderByTituloAsc('%'+titulo+'%'));
+    }
+
     @GetMapping("get-denuncias-id/{id}")
     public ResponseEntity<Object> getDenunciasId(@PathVariable(value = "id") long id)
     {

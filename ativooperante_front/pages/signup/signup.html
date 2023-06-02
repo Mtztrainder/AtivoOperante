@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -7,8 +8,8 @@
 
     <link rel="stylesheet" href="../../css/stlye.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
-    integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
-    crossorigin="anonymous" referrerpolicy="no-referrer" />
+        integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
 
 
     <!-- Javascript -->
@@ -16,12 +17,13 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://code.jquery.com/jquery-3.7.0.min.js"
         integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
-    
+
     <script src="../../utils/util.js"></script>
     <script src="../../controller/SignupController.js"></script>
 
     <title>Login</title>
 </head>
+
 <body>
     <div class="lg:flex">
         <div class="lg:w-1/2 xl:max-w-screen-sm">
@@ -39,8 +41,11 @@
                 <div class="mt-8">
                     <form id="cadastrar-form">
                         <div>
-                            <div class="text-sm font-bold text-gray-700 tracking-wide">Email <span class="text-red-600 italic  text-xs">*</span></div>
-                            <input id="email" class="w-full text-lg py-2 border-b border-gray-300 focus:outline-none focus:border-blue-600" type="email" placeholder="email@email.com">
+                            <div class="text-sm font-bold text-gray-700 tracking-wide">Email <span
+                                    class="text-red-600 italic  text-xs">*</span></div>
+                            <input id="email"
+                                class="w-full text-lg py-2 border-b border-gray-300 focus:outline-none focus:border-blue-600"
+                                type="email" placeholder="email@email.com">
                             <span id="e_email" class="hidden text-red-600 italic text-xs">Campo obrigatório</span>
                         </div>
 
@@ -48,9 +53,11 @@
                             <div class="flex justify-between items-center">
                                 <div class="text-sm font-bold text-gray-700 tracking-wide">
                                     Nome <span class="text-red-600 italic  text-xs">*</span>
-                                </div>                               
+                                </div>
                             </div>
-                            <input id="nome" class="w-full text-lg py-2 border-b border-gray-300 focus:outline-none focus:border-blue-600" type="text" placeholder="Informe seu Nome">
+                            <input id="nome"
+                                class="w-full text-lg py-2 border-b border-gray-300 focus:outline-none focus:border-blue-600"
+                                type="text" placeholder="Informe seu Nome">
                             <span id="e_nome" class="hidden text-red-600 italic text-xs">Campo obrigatório</span>
                         </div>
 
@@ -58,40 +65,62 @@
                             <div class="flex justify-between items-center">
                                 <div class="text-sm font-bold text-gray-700 tracking-wide">
                                     CPF <span class="text-red-600 italic  text-xs">*</span>
-                                </div>                               
+                                </div>
                             </div>
-                            <input id="CPF" class="w-full text-lg py-2 border-b border-gray-300 focus:outline-none focus:border-blue-600" type="text" placeholder="Informe seu CPF">
+                            <input id="CPF"
+                                class="w-full text-lg py-2 border-b border-gray-300 focus:outline-none focus:border-blue-600"
+                                type="text" oninput="mCpf()" maxlength="14" placeholder="Informe seu CPF">
                             <span id="e_CPF" class="hidden text-red-600 italic text-xs">Campo obrigatório</span>
                         </div>
                         <div class="mt-4">
                             <div class="flex justify-between items-center">
                                 <div class="text-sm font-bold text-gray-700 tracking-wide">
                                     Senha <span class="text-red-600 italic  text-xs">*</span>
-                                </div>                               
+                                </div>
                             </div>
-                            <input id="senha" class="w-full text-lg py-2 border-b border-gray-300 focus:outline-none focus:border-blue-600" type="password" placeholder="Digite sua senha">
+                            <input id="senha"
+                                class="w-full text-lg py-2 border-b border-gray-300 focus:outline-none focus:border-blue-600"
+                                type="password" placeholder="Digite sua senha">
                             <span id="e_senha" class="hidden text-red-600 italic text-xs">Campo obrigatório</span>
                         </div>
-                       
+
                         <div class="mt-4">
                             <div class="flex justify-between items-center">
                                 <div class="text-sm font-bold text-gray-700 tracking-wide">
                                     Confirmar Senha <span class="text-red-600 italic  text-xs">*</span>
-                                </div>                               
+                                </div>
                             </div>
-                            <input id="confsenha" class="w-full text-lg py-2 border-b border-gray-300 focus:outline-none focus:border-blue-600" type="password" placeholder="Confirme sua senha">
+                            <input id="confsenha"
+                                class="w-full text-lg py-2 border-b border-gray-300 focus:outline-none focus:border-blue-600"
+                                type="password" placeholder="Confirme sua senha">
                             <span id="e_confsenha" class="hidden text-red-600 italic text-xs">Campo obrigatório</span>
                         </div>
-                        
-                        <div class="mt-8">
-                            <button class="bg-blue-600 text-gray-100 p-4 w-full rounded-full tracking-wide
+                        <div class="flex flex-row justify-between w-full mt-8">
+                            <div class="sm:col-span-3 w-5/12 ">
+
+                                <button class="bg-blue-600 text-gray-100 p-4 w-full rounded-full tracking-wide
+                                font-semibold font-display focus:outline-none focus:shadow-outline hover:bg-blue-900
+                                shadow-lg" type="button" onclick="setIndex()">
+                                    Voltar
+                                </button>
+
+
+
+
+                            </div>
+                            <div class="sm:col-span-3  w-5/12 ">
+
+                                <button class="bg-blue-600 text-gray-100 p-4 w-full rounded-full tracking-wide
                             font-semibold font-display focus:outline-none focus:shadow-outline hover:bg-blue-900
                             shadow-lg" type="button" onclick="cadatrar()">
-                                Cadastrar
-                            </button>
+                                    Cadastrar
+                                </button>
+                            </div>
                         </div>
+
+
                     </form>
-                    
+
                 </div>
             </div>
         </div>
@@ -101,9 +130,11 @@
             </div>
         </div>
     </div>
-  
+
 
 </body>
+
 </html>
 </body>
+
 </html>

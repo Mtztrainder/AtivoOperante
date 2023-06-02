@@ -209,14 +209,14 @@ function verificacaoAcesso(){
 
     if (ValidaAcesso){
         if (token == undefined || token == null || token == ""){
-            window.location.href = Index();
+            setIndex();
         }
 
         if (nivel == "1"){
             list = N1();
             let AcessoIndevido = list.filter(obj =>{ return obj.tela == TelaAtual() }).length == 0
             if (AcessoIndevido){
-                window.location.href = Index();
+                setIndex();
             }
         }
     }
@@ -254,6 +254,20 @@ function Index(){
     
     return ret+"index.html";
 }
+
+
+function setIndex(){
+    window.location.href = Index();
+}
+
+function mCpf() {
+    var cpf = event.target.value;
+    cpf = cpf.replace(/\D/g, "")
+    cpf = cpf.replace(/(\d{3})(\d)/, "$1.$2")
+    cpf = cpf.replace(/(\d{3})(\d)/, "$1.$2")
+    cpf = cpf.replace(/(\d{3})(\d{1,2})$/, "$1-$2")
+    event.target.value = cpf;
+ }
 
 verificacaoAcesso()
 

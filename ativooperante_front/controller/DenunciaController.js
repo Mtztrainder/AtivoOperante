@@ -51,12 +51,12 @@ async function LoadTable(busca) {
         html += `
         <tr class="flex w-full hover:bg-gray-100 hover:bg-gray-200">
             <td class="p-4 w-1/12 text-base font-medium text-gray-900 whitespace-nowrap text-white">${denuncia.id}</td>   
-            <td class="p-4 truncate w-2/12 text-base font-medium text-gray-900 whitespace-nowrap text-white">${denuncia.titulo}</td>   
-            <td class="p-4 w-1/12 text-base font-medium text-gray-900 whitespace-nowrap text-white">${getUrgencia(denuncia.urgencia)}</td>   
-            <td class="p-4 w-2/12 text-base font-medium text-gray-900 whitespace-nowrap text-white">${getFormattedDateTime(denuncia.dtCriacao)}</td>   
-            <td class="p-4 w-2/12 text-base font-medium text-gray-900 whitespace-nowrap text-white">${denuncia.orgao.nome}</td>
-            <td class="p-4 w-2/12 text-base font-medium text-gray-900 whitespace-nowrap text-white">${denuncia.tipo.nome}</td>
-            <td class="p-4 w-2/12 text-base font-medium text-gray-900 whitespace-nowrap text-white">${getFeedBack(denuncia.feedback)}</td>
+            <td class="p-4 truncate w-2/12 text-base font-medium text-gray-900 whitespace-nowrap text-white" title="${denuncia.titulo}">${denuncia.titulo}</td>   
+            <td class="p-4 truncate w-1/12 text-base font-medium text-gray-900 whitespace-nowrap text-white" title="${getUrgencia(denuncia.urgencia)}">${getUrgencia(denuncia.urgencia)}</td>   
+            <td class="p-4 truncate w-2/12 text-base font-medium text-gray-900 whitespace-nowrap text-white" title="${getFormattedDateTime(denuncia.dtCriacao)}">${getFormattedDateTime(denuncia.dtCriacao)}</td>   
+            <td class="p-4 truncate w-2/12 text-base font-medium text-gray-900 whitespace-nowrap text-white" title="${denuncia.orgao.nome}">${denuncia.orgao.nome}</td>
+            <td class="p-4 truncate w-2/12 text-base font-medium text-gray-900 whitespace-nowrap text-white" title="${denuncia.tipo.nome}">${denuncia.tipo.nome}</td>
+            <td class="p-4 truncate w-2/12 text-base font-medium text-gray-900 whitespace-nowrap text-white" title="${getFeedBack(denuncia.feedback)}">${getFeedBack(denuncia.feedback)}</td>
             
         </tr>
     
