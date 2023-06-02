@@ -11,8 +11,19 @@ async function logar(){
         })
         .then( async (result) =>  {
             localStorage.setItem("token", result);
-            localStorage.setItem("login", btoa($("#email").val()))            
-            window.location.href = 'pages/home/home.html'
+            localStorage.setItem("login", btoa($("#email").val()))
+
+            let nivel = await getNivel()
+            localStorage.setItem("nivel", btoa(nivel))
+
+            await setUsuario()
+
+            if (nivel == "0"){
+                window.location.href = 'pages/home/home.html'
+            }else{
+                window.location.href = 'pages/denuncias/denuncia.html'
+
+            }
         })
         .catch(err => {
             let mensagem = err

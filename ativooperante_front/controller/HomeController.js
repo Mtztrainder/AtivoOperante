@@ -1,37 +1,3 @@
-async function getIdUsuario() {
-    const URL_TO_FETCH = `http://localhost:8080/security/get-id-usuario`
-    const result = await fetch(URL_TO_FETCH, {
-        method: 'GET',
-        headers: { "Authorization": localStorage.getItem("token") }
-    }
-    ).then((response) => {
-        return response.json();
-    })
-
-    return result;
-}
-
-
-async function getNomeUsuario() {
-    const URL_TO_FETCH = `http://localhost:8080/security/get-nome-usuario`
-    const result = await fetch(URL_TO_FETCH, {
-        method: 'GET',
-        headers: { "Authorization": localStorage.getItem("token") }
-    }
-    ).then((response) => {
-        return response.text();
-    })
-
-    return result;
-}
-
-async function setUsuario() {
-    localStorage.setItem("id", btoa(await getIdUsuario()))
-    localStorage.setItem("nome", btoa(await getNomeUsuario()))
-}
-
-
-
 async function LoadTable(busca) {
 
     let html = "";
@@ -251,3 +217,9 @@ async function AddFeedback(){
     document.getElementById("set-modal").children[0].remove();
     LoadTable($("#filtro").val())
 }
+
+$(document).ready(() => {
+    LoadTable(); 
+    AtualizaUsuarioLogado();
+    ProfileDropDown();
+})

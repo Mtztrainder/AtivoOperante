@@ -292,3 +292,8 @@ function getFeedBack(feedback) {
 }
 
 
+$(document).ready(() => {
+    LoadTable(); 
+    AtualizaUsuarioLogado();
+    ProfileDropDown();
+})

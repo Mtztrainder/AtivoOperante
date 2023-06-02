@@ -201,3 +201,9 @@ async function Editar(id, nome){
 async function Filtrar(){
     LoadTable(event.target.value)
 }
+
+$(document).ready(() => {
+    LoadTable(); 
+    AtualizaUsuarioLogado();
+    ProfileDropDown();
+})

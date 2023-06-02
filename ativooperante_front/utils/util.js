@@ -108,3 +108,73 @@ async function AtualizaUsuarioLogado() {
    
     $("#usu_name").html(atob(localStorage.getItem("nome")));
 }
+
+async function getNivel(){
+    const URL_TO_FETCH = `http://localhost:8080/security/get-nivel`  
+
+    const nivel = await fetch(URL_TO_FETCH, { 
+        method: 'GET',
+        headers:{
+            "Authorization": `${localStorage.getItem("token")}`
+        }
+    }).then(response => {
+        return response.text();
+    })
+
+    return nivel;
+}
+
+async function getNome(){
+    const URL_TO_FETCH = `http://localhost:8080/security/get-usu`  
+
+    const nivel = await fetch(URL_TO_FETCH, { 
+        method: 'GET',
+        headers:{
+            "Authorization": `${localStorage.getItem("token")}`
+        }
+    }).then(response => {
+        return response.text();
+    })
+
+    return nivel;
+}
+
+async function getIdUsuario() {
+    const URL_TO_FETCH = `http://localhost:8080/security/get-id-usuario`
+    const result = await fetch(URL_TO_FETCH, {
+        method: 'GET',
+        headers: { "Authorization": `${localStorage.getItem("token")}` }
+    }
+    ).then((response) => {
+        return response.json();
+    })
+
+    return result;
+}
+
+
+async function getNomeUsuario() {
+    const URL_TO_FETCH = `http://localhost:8080/security/get-nome-usuario`
+    const result = await fetch(URL_TO_FETCH, {
+        method: 'GET',
+        headers: { "Authorization": `${localStorage.getItem("token")}` }
+    }
+    ).then((response) => {
+        return response.text();
+    })
+
+    return result;
+}
+
+async function setUsuario() {
+    localStorage.setItem("id", btoa(await getIdUsuario()))
+    localStorage.setItem("nome", btoa(await getNomeUsuario()))
+}
+
+function ProfileDropDown(){
+    $("#ProfileDropDown").html(`
+        <ul class="list-reset">
+            <li><a href="../../index.html" class="no-underline px-4 py-2 block text-black hover:bg-grey-light">Sair</a></li>
+        </ul>
+    `)
+}

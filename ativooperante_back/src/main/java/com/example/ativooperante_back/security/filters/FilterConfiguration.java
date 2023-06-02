@@ -16,6 +16,7 @@ public class FilterConfiguration {
         register.addUrlPatterns("/apis/*");
         register.addUrlPatterns("/security/get-id-usuario");
         register.addUrlPatterns("/security/get-nome-usuario");
+        register.addUrlPatterns("/security/get-nivel");
         return register;
     }
 }

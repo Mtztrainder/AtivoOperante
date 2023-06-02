@@ -4,7 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -48,7 +47,6 @@ public class SecurityRestController {
     @GetMapping("get-id-usuario")
     public ResponseEntity <Object> getIdUsuario()
     {
-       
         String id = (String)request.getAttribute("id").toString();
         if(id != null && id.length() > 0)
         {   
@@ -60,14 +58,22 @@ public class SecurityRestController {
     @GetMapping("get-nome-usuario")
     public ResponseEntity <Object> getNomeUsuario()
     {
-       
         String nome = (String)request.getAttribute("nome").toString();
         if(nome != null && nome.length() > 0)
         {   
             return ResponseEntity.ok(nome);
         }
         return ResponseEntity.badRequest().body("Usuario não encontrado");
-    } 
+    }
 
-   
+    @GetMapping("get-nivel")
+    public ResponseEntity <Object> getNivel()
+    {
+        String nivel = (String)request.getAttribute("nivel").toString();
+        if(nivel != null && nivel.length() > 0)
+        {   
+            return ResponseEntity.ok(nivel);
+        }
+        return ResponseEntity.badRequest().body("Usuario não encontrado");
+    } 
 }
