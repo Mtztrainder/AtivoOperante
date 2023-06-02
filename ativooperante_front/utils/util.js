@@ -57,19 +57,19 @@ function geraASIDE(tela){
         {
             "link": "../home/home.html",
             "nome": "Início",
-            "icone": ``
+            "icone": `<i class="fa-solid fa-house"></i>`
         },
 
         {
             "link": "../orgaos/orgaos.html",
             "nome": "Órgãos",
-            "icone": ``
+            "icone": `<i class="fa-solid fa-person-military-pointing"></i>`
         },
 
         {
             "link": "../tipos/tipos.html",
-            "nome": "Tipos",
-            "icone": ``
+            "nome": "Tipos de Problemas",
+            "icone": `<i class="fa-solid fa-traffic-light"></i>`
         }
     ]
 
@@ -98,14 +98,7 @@ function geraASIDE(tela){
     $("aside").html(html)
 }
 
-$(document).ready(() =>{
-    let tela = window.location.pathname.split("/")
-    geraASIDE(tela[tela.length-1])
-})
-
-
 async function AtualizaUsuarioLogado() {
-   
     $("#usu_name").html(atob(localStorage.getItem("nome")));
 }
 
@@ -198,3 +191,72 @@ function getUrgencia(id){
         return urg.id == id
     })[0].nome
 }
+
+function addErro(id, erro= "Campo obrigatório"){
+    $(`#e_${id}`).html(erro);
+    $(`#e_${id}`).show()
+}
+
+function removeErro(id){
+    $(`#e_${id}`).hide()
+}
+
+function verificacaoAcesso(){
+    let token = localStorage.getItem("token")
+    let nivel = atob(localStorage.getItem("nivel"))
+    let list = NvalidaAcesso()
+    let ValidaAcesso = list.filter(obj =>{ return obj.tela == TelaAtual() }).length == 0
+
+    if (ValidaAcesso){
+        if (token == undefined || token == null || token == ""){
+            window.location.href = Index();
+        }
+
+        if (nivel == "1"){
+            list = N1();
+            let AcessoIndevido = list.filter(obj =>{ return obj.tela == TelaAtual() }).length == 0
+            if (AcessoIndevido){
+                window.location.href = Index();
+            }
+        }
+    }
+}
+
+function NvalidaAcesso(){
+    let List = [
+        {tela: ""},
+        {tela: "index.html"},
+        {tela: "signup.html"}
+    ]
+
+    return List
+}
+
+function N1(){
+    let List = [
+        {tela: "denuncia.html"},
+    ]
+    return List
+}
+
+function TelaAtual(){
+    let arr = window.location.pathname.split("/")
+    return arr[arr.length-1];
+}
+
+function Index(){
+    let arr = window.location.pathname.split("/")
+    let ret = ""
+    //3 = padrão de quebra (local onde o index fica)
+    for(let i=0; i<arr.length-3; i++){
+        ret += "../"
+    }
+    
+    return ret+"index.html";
+}
+
+verificacaoAcesso()
+
+$(document).ready(() =>{
+    geraASIDE(TelaAtual())
+})

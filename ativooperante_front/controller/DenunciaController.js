@@ -108,54 +108,58 @@ async function OpenModal() {
     modalContent = `   
     <div class="py-12 bg-gray-700 bg-opacity-80 transition duration-150 ease-in-out z-10 absolute top-0 right-0 bottom-0 left-0  flex flex-col justify-center items-center" id="modal">
     <div role="alert" class=" container align-center w-11/12 md:w-2/3 max-w-lg">
-        <div class="relative py-8 px-5 md:px-10 bg-white shadow-md rounded border border-gray-400">
+        <div class="relative py-8 px-5 md:px-10 bg-white dark:bg-gray-800 shadow-md rounded border border-gray-400">
           
-            <h1 class="text-gray-800 font-lg font-bold tracking-normal leading-tight mb-4">Denuncie</h1>
+            <h1 class="text-gray-800 font-lg font-bold tracking-normal leading-tight mb-4 dark:text-white">Denuncie</h1>
             <form id="form-denuncia">
                 <input id="id" name="id" type="hidden" />
+
                 <label for="titulo" class="text-gray-800 text-sm 
-                                        font-bold leading-tight tracking-normal">Titulo da Denuncia</label>
+                                        font-bold leading-tight tracking-normal dark:text-white">Titulo da Denuncia <span class="text-red-600 italic  text-xs">*</span></label>
                 <input type="text" id="titulo" name="titulo" 
-                    class="mb-5 mt-2 text-gray-600 
+                    class="mb-1 mt-2 text-gray-600 
                             focus:outline-none focus:border focus:border-indigo-700 
                             font-normal w-full h-10 flex 
-                            items-center pl-3 text-sm border-gray-300 rounded border" 
-                    placeholder="Ex: ..." />
-                    
+                            items-center pl-3 text-sm border-gray-300 rounded border
+                            dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" 
+                    placeholder="Ex: Problema na Rua XXX" />
+                <span id="e_titulo" class="hidden text-red-600 italic text-xs">Campo obrigatório</span>
                 
-                    <label for="urgencia" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Urgência</label>
-                    <select id="urgencia" name="urgencia" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                        <option></option>`
+                <label for="urgencia" class="block mb-2 mt-2 text-sm font-medium text-gray-900 dark:text-white">Urgência <span class="text-red-600 italic  text-xs">*</span></label>
+                <select id="urgencia" name="urgencia" class="mb-1 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                    <option></option>`
                     urg.forEach(elem => {
                         modalContent += `<option value='${elem.id}'>${elem.nome}</option>`
                     })
                     modalContent += `
-                    </select>
-                    <label for="orgao" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Orgão</label>
-                    <select id="orgao" name="orgao" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                    <option value=""> </option>
-                     `
+                </select>
+                <span id="e_urgencia" class="hidden text-red-600 italic text-xs">Campo obrigatório</span>
 
-    for (let i = 0; i < orgaos.length; i++) {
-        modalContent += `<option value=${orgaos[i].id}> ${orgaos[i].nome} </option>`;
-    }
-    modalContent +=
-        `
-                     
-                    </select>
-                    <label for="tipo" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Tipo do Problema</label>
-                    <select id="tipo" name="tipo" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                    <option value=""> </option>
-                      `
-    for (let i = 0; i < tipos.length; i++) {
-        modalContent += `<option value=${tipos[i].id}> ${tipos[i].nome} </option>`;
-    }
-    modalContent +=
-        `
-                    </select>
-                    
-                    <label for="texto" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Descrição da denuncia</label>
+                <label for="orgao" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Orgão <span class="text-red-600 italic  text-xs">*</span></label>
+                <select id="orgao" name="orgao" class="mb-1 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                <option value=""> </option>`
+                    orgaos.forEach(org => {
+                        modalContent += `<option value=${org.id}> ${org.nome} </option>`;
+                    })
+
+                    modalContent +=`
+                </select>
+                <span id="e_orgao" class="hidden text-red-600 italic text-xs">Campo obrigatório</span>
+
+                <label for="tipo" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Tipo do Problema <span class="text-red-600 italic  text-xs">*</span></label>
+                <select id="tipo" name="tipo" class="mb-1 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                <option value=""> </option>`
+                    tipos.forEach(tip =>{
+                        modalContent += `<option value=${tip.id}> ${tip.nome} </option>`;
+                    })
+                modalContent +=
+                    `
+                </select>
+                <span id="e_tipo" class="hidden text-red-600 italic text-xs">Campo obrigatório</span>  
+
+                    <label for="texto" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Descrição da denuncia <span class="text-red-600 italic  text-xs">*</span></label>
                     <textarea id="texto" name="texto" rows="4" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Descrição da denuncia"></textarea>
+                    <span id="e_texto" class="hidden text-red-600 italic text-xs">Campo obrigatório</span>
 
                 <div class="relative mb-5 mt-2"> 
             </form>
@@ -190,87 +194,148 @@ function CloseModal() {
 }
 
 
-async function Salvar() {
-    const URL_TO_FETCH = "http://localhost:8080/apis/cidadao/add-denuncia"
-    const form = document.getElementById("form-denuncia");
+function validarDados(){
+    let titulo = $("#titulo").val()
+    let urgencia = $("#urgencia").val()
+    let orgao = $("#orgao").val()
+    let tipo = $("#tipo").val()
+    let texto = $("#texto").val()
 
-    const data = new FormData(form);
-    // const formJSON = Object.fromEntries(data.entries());
-    let formJSON = {};
+    let erro = false
 
-    for (const [chave, valor] of data.entries()) {
-        if (chave != "orgao" && chave != "tipo") {
-            formJSON[chave] = valor;
-        }
+    if (titulo == ""){
+        addErro("titulo")
+        erro = true
+    }else{
+        removeErro("titulo")
     }
 
-
-
-    const datac = new Date();
-
-
-
-
-
-
-    const dataFormatada = datac.toISOString();
-
-    formJSON.dtCriacao = dataFormatada;
-
-
-
-    let select = document.querySelector('select[name="orgao"]');
-    let selectedOption = select.options[select.selectedIndex];
-
-    formJSON.orgao = {
-        "id": selectedOption.value,
-        "nome": selectedOption.text
+    if (urgencia == ""){
+        addErro("urgencia")
+        erro = true
+    }else{
+        removeErro("urgencia")
     }
 
-    select = document.querySelector('select[name="tipo"]');
-    selectedOption = select.options[select.selectedIndex];
-    formJSON.tipo = {
-        "id": selectedOption.value,
-        "nome": selectedOption.text
+    if (orgao == ""){
+        addErro("orgao")
+        erro = true
+    }else{
+        removeErro("orgao")
     }
 
-
-    formJSON.usuario = {
-        "id": atob(localStorage.getItem("id"))
+    if (tipo == ""){
+        addErro("tipo")
+        erro = true
+    }else{
+        removeErro("tipo")
     }
 
-    console.log(formJSON);
-    var myHeaders = new Headers();
-    myHeaders.append("Content-Type", "application/json");
-    myHeaders.append("Authorization", localStorage.getItem("token"));
+    if (texto == ""){
+        addErro("texto")
+        erro = true
+    }else{
+        removeErro("texto")
+    }
 
-    var raw = JSON.stringify(formJSON);
-
-    var requestOptions = {
-        method: 'POST',
-        headers: myHeaders,
-        body: raw,
-        redirect: 'follow'
-    };
-
-    const dados = await fetch(URL_TO_FETCH, requestOptions).then(res => {
-        return res.json()
-    });
-
-    document.getElementById("set-modal").children[0].remove();
-    LoadTable($("#filtro").val())
+    return !erro
 }
 
+async function Salvar() {
+    if (validarDados())
+    {
+        await Swal.fire({
+            title: 'Atenção!',
+            html: 'Você tem certeza que deseja incluir? Uma vez inserido, não poderá ser excluído.',
+            icon: 'question',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Confirmar',
+            cancelButtonText: 'Cancelar'
+        }).then( async (result) => {
+            if (result.isConfirmed) {
+                const URL_TO_FETCH = "http://localhost:8080/apis/cidadao/add-denuncia"
+                const form = document.getElementById("form-denuncia");
+        
+                const data = new FormData(form);
+                // const formJSON = Object.fromEntries(data.entries());
+                let formJSON = {};
+        
+                for (const [chave, valor] of data.entries()) {
+                    if (chave != "orgao" && chave != "tipo") {
+                        formJSON[chave] = valor;
+                    }
+                }
+        
+                const datac = new Date();
+                const dataFormatada = datac.toISOString();
+                formJSON.dtCriacao = dataFormatada;
+        
+                let select = document.querySelector('select[name="orgao"]');
+                let selectedOption = select.options[select.selectedIndex];
+        
+                formJSON.orgao = {
+                    "id": selectedOption.value,
+                    "nome": selectedOption.text
+                }
+        
+                select = document.querySelector('select[name="tipo"]');
+                selectedOption = select.options[select.selectedIndex];
+                formJSON.tipo = {
+                    "id": selectedOption.value,
+                    "nome": selectedOption.text
+                }
+        
+        
+                formJSON.usuario = {
+                    "id": atob(localStorage.getItem("id"))
+                }
+        
+                var myHeaders = new Headers();
+                myHeaders.append("Content-Type", "application/json");
+                myHeaders.append("Authorization", localStorage.getItem("token"));
+        
+                var raw = JSON.stringify(formJSON);
+        
+                var requestOptions = {
+                    method: 'POST',
+                    headers: myHeaders,
+                    body: raw,
+                    redirect: 'follow'
+                };
+        
+                const dados = await fetch(URL_TO_FETCH, requestOptions).then(res => {
+                    return res.text()
+                });
 
-
-
-
+                if (dados == "OK"){
+                    await Swal.fire(
+                        'Perfeito :)',
+                        'Denuncia adicionada com sucesso!',
+                        'success'
+                    ).then(() => {
+                        document.getElementById("set-modal").children[0].remove();
+                        LoadTable($("#filtro").val())
+                    })
+                }else{
+                    await Swal.fire(
+                        'Eita... :(',
+                        dados,
+                        'error'
+                    ).then(() => {
+                        document.getElementById("set-modal").children[0].remove();
+                        LoadTable($("#filtro").val())
+                    })
+                }
+            }
+        })
+    }
+}
 
 async function Filtrar() {
     LoadTable(event.target.value)
 }
-
-
 
 function getFormattedDateTime(datac) {
     var data = new Date(datac);
@@ -281,7 +346,7 @@ function getFormattedDateTime(datac) {
     var minutos = String(data.getMinutes()).padStart(2, '0');
     var segundos = String(data.getSeconds()).padStart(2, '0');
 
-    return dia + '/' + mes + '/' + ano + ':' + horas + ':' + minutos + ':' + segundos;
+    return dia + '/' + mes + '/' + ano + ' ' + horas + ':' + minutos + ':' + segundos;
 }
 
 function getFeedBack(feedback) {

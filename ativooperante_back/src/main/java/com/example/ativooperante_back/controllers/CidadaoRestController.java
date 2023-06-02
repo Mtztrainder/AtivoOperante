@@ -65,7 +65,7 @@ public class CidadaoRestController {
     {
         Usuario usuario = new Usuario();
         usuario.setId(id_usu);        
-        return ResponseEntity.ok().body(denunciarepo.findAllByUsuario(usuario));
+        return ResponseEntity.ok().body(denunciarepo.findAllByUsuarioOrderByDtCriacaoDesc(usuario));
     }
 
     @GetMapping("get-denuncia-titulo/{id_usu}/{titulo}")
@@ -77,8 +77,17 @@ public class CidadaoRestController {
     }
 
     @PostMapping("add-denuncia")
-    public ResponseEntity<Object> addDenuncia(@RequestBody Denuncia denuncia) {        
-        return ResponseEntity.ok().body(denunciarepo.save(denuncia));
+    public ResponseEntity<Object> addDenuncia(@RequestBody Denuncia denuncia) {       
+        try {
+            Denuncia den = denunciarepo.save(denuncia);
+            if (den != null)
+                return ResponseEntity.ok().body("OK");
+            else
+                return ResponseEntity.badRequest().body("Erro ao inserir.");
+        } catch (Exception e) {
+            // TODO: handle exception
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
     }
     
 }

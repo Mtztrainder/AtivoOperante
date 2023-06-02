@@ -131,9 +131,6 @@ async function Feedback(id){
     document.getElementById("orgao").html = den.orgao.nome;
     document.getElementById("tipo").value = den.tipo.nome;
     document.getElementById("texto").value = den.texto;
-  
-
-
 }
 
 
@@ -142,7 +139,7 @@ async function OpenModal() {
     modalContent = `   
     <div class="py-12 bg-gray-700 bg-opacity-80 transition duration-150 ease-in-out z-10 absolute top-0 right-0 bottom-0 left-0  flex flex-col justify-center items-center" id="modal">
     <div role="alert" class=" container align-center w-11/12 md:w-2/3 max-w-lg">
-        <div class="relative py-8 px-5 md:px-10 bg-white shadow-md rounded border border-gray-400">
+        <div class="relative py-8 px-5 md:px-10 bg-white dark:bg-gray-800 shadow-md rounded border border-gray-400">
           
             <h1 class="text-gray-800 font-lg font-bold tracking-normal leading-tight mb-4">Denuncie</h1>
             <form id="form-denuncia">
@@ -150,12 +147,14 @@ async function OpenModal() {
                 <input id="urgencia" name="urgencia" class="hidden" readonly />
 
                 <label for="titulo" class="text-gray-800 text-sm 
-                                        font-bold leading-tight tracking-normal">Titulo da Denuncia</label>
+                                        font-bold leading-tight tracking-normal dark:text-white">Titulo da Denuncia</label>
+
                 <input type="text" id="titulo" name="titulo"  readonly
                     class="mb-5 mt-2 text-gray-600 
                             focus:outline-none focus:border focus:border-indigo-700 
                             font-normal w-full h-10 flex 
-                            items-center pl-3 text-sm border-gray-300 rounded border" 
+                            items-center pl-3 text-sm border-gray-300 rounded border
+                            dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" 
                     placeholder="Ex: ..." />
                     
                 
@@ -170,9 +169,9 @@ async function OpenModal() {
                     <label for="texto" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Descrição da denuncia</label>
                     <textarea readonly id="texto" name="texto" rows="4" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Descrição da denuncia"></textarea>
 
-                    <label for="texto" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Adicionar Feedback</label>
+                    <label for="feedback" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Adicionar Feedback <span class="text-red-600 italic  text-xs">*</span></label>
                     <textarea  id="feedback" name="feedback" rows="4" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Adicionar Feedback"></textarea>
-
+                    <span id="e_feedback" class="hidden text-red-600 italic text-xs">Campo obrigatório</span>
                 <div class="relative mb-5 mt-2"> 
             </form>
                 
@@ -209,19 +208,83 @@ function CloseModal() {
 async function AddFeedback(){
     id = document.getElementById("id").value;
     feedback = document.getElementById("feedback").value;
-    const URL_TO_FETCH = `http://localhost:8080/apis/admin/add-feedback/${id}/${feedback}`;
-    var myHeaders = new Headers();
-    myHeaders.append("Content-Type", "application/json");
-    myHeaders.append("Authorization", localStorage.getItem("token"));
 
-    var msg = await fetch(URL_TO_FETCH, { method: 'GET', headers: myHeaders }).then(res => {
-        return res.text()
-    });
+    if (feedback == ""){
+        addErro("feedback")
+    }else{
+        removeErro("feedback")
 
-    console.log(msg);
+        const URL_TO_FETCH = `http://localhost:8080/apis/admin/add-feedback/${id}/${feedback}`;
+        var myHeaders = new Headers();
+        myHeaders.append("Content-Type", "application/json");
+        myHeaders.append("Authorization", localStorage.getItem("token"));
 
-    document.getElementById("set-modal").children[0].remove();
-    LoadTable($("#filtro").val())
+        var msg = await fetch(URL_TO_FETCH, { method: 'GET', headers: myHeaders }).then(res => {
+            return res.text()
+        });
+
+        if (msg == "inserido com sucesso"){
+            Swal.fire(
+                'Perfeito :)',
+                'Feedback adicionado com sucesso!',
+                'success'
+            ).then(() => {
+                document.getElementById("set-modal").children[0].remove();
+                LoadTable($("#filtro").val())
+            })
+        }
+        else{
+            await Swal.fire(
+                'Eita... :(',
+                msg,
+                'error'
+            ).then(() => {
+                document.getElementById("set-modal").children[0].remove();
+                LoadTable($("#filtro").val())
+            })
+        }
+    }
+}
+
+async function Deletar(id, nome){
+    const URL_TO_FETCH = `http://localhost:8080/apis/admin/del-denuncia/${id}`    
+
+    Swal.fire({
+        title: 'Atenção',
+        html: `Deseja realmente excluir a denuncia: <b>${nome}</b>`,
+        showDenyButton: true,
+        confirmButtonText: 'Confirmar',
+        denyButtonText: `Cancelar`,
+    }).then(async (result) => {
+        if (result.isConfirmed) {
+            const dados = await fetch(URL_TO_FETCH, 
+                { 
+                    method: 'GET', 
+                    headers: {
+                        'Authorization': `${localStorage.getItem("token")}`
+                    }
+                }).then(res => {
+                return res.text()
+            });
+        
+            let icon = "error"
+            let title = "Erro ao deletar :("
+            let content = dados
+            if (dados == "deletado com sucesso"){
+                icon = "success"
+                title = "Sucesso :)"
+                content = "Sucesso ao deletar :D"
+            }
+
+            Swal.fire({
+                icon: icon,
+                title: title,
+                text: content
+            })
+
+            LoadTable($("#filtro").val())
+        }
+    })
 }
 
 $(document).ready(() => {

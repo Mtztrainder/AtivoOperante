@@ -76,19 +76,22 @@ function OpenModal() {
     modalContent = `   
     <div class="py-12 bg-gray-700 bg-opacity-80 transition duration-150 ease-in-out z-10 absolute top-0 right-0 bottom-0 left-0" id="modal">
     <div role="alert" class=" container mx-auto w-11/12 md:w-2/3 max-w-lg">
-        <div class="relative py-8 px-5 md:px-10 bg-white shadow-md rounded border border-gray-400">
+        <div class="relative py-8 px-5 md:px-10 bg-white dark:bg-gray-800 shadow-md rounded border border-gray-400">
           
-            <h1 class="text-gray-800 font-lg font-bold tracking-normal leading-tight mb-4">Cadastrar Orgãos</h1>
+            <h1 class="text-gray-800 dark:text-white font-lg font-bold tracking-normal leading-tight mb-4">Cadastrar Orgãos</h1>
             <form id="form-orgao">
-                <input id="id" name="id" type="hidden" placeholder="Ex: Polícia Militar" />
+                <input id="id" name="id" type="hidden"/>
                 <label for="nome" class="text-gray-800 text-sm 
-                                        font-bold leading-tight tracking-normal">Nome do Orgão</label>
+                                        font-bold leading-tight tracking-normal dark:text-white">Nome do Orgão <span class="text-red-600 italic  text-xs">*</span></label>
                 <input type="text" id="nome" name="nome" 
-                    class="mb-5 mt-2 text-gray-600 
+                    class="mb-1 mt-2 text-gray-600 
                             focus:outline-none focus:border focus:border-indigo-700 
                             font-normal w-full h-10 flex 
-                            items-center pl-3 text-sm border-gray-300 rounded border" 
+                            items-center pl-3 text-sm border-gray-300 rounded border
+                            dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" 
                     placeholder="Ex: Polícia Militar" />
+                <span id="e_nome" class="hidden text-red-600 italic text-xs">Campo obrigatório</span>
+
                 <div class="relative mb-5 mt-2">
             </form>
                 
@@ -121,33 +124,48 @@ function CloseModal() {
     document.getElementById("set-modal").children[0].remove();
 }
 
+function validarDados(){
+    let nome = $("#nome").val()
+    let erro = false
+
+    if (nome == ""){
+        addErro("nome")
+        erro = true
+    }else{
+        removeErro("nome")
+    }
+
+    return !erro
+}
 
 async function Salvar() {
-    const URL_TO_FETCH = "http://localhost:8080/apis/admin/save-orgao"
-    const form = document.getElementById("form-orgao");
+    if (validarDados()){
+        const URL_TO_FETCH = "http://localhost:8080/apis/admin/save-orgao"
+        const form = document.getElementById("form-orgao");
 
-    const data = new FormData(form);
-    const formJSON = Object.fromEntries(data.entries());
+        const data = new FormData(form);
+        const formJSON = Object.fromEntries(data.entries());
 
-    var myHeaders = new Headers();
-    myHeaders.append("Authorization", `${localStorage.getItem("token")}`)
-    myHeaders.append("Content-Type", "application/json");
-    
-    var raw = JSON.stringify(formJSON);
-    
-    var requestOptions = {
-        method: 'POST',
-        headers: myHeaders,
-        body: raw,
-        redirect: 'follow'
-    };
+        var myHeaders = new Headers();
+        myHeaders.append("Authorization", `${localStorage.getItem("token")}`)
+        myHeaders.append("Content-Type", "application/json");
+        
+        var raw = JSON.stringify(formJSON);
+        
+        var requestOptions = {
+            method: 'POST',
+            headers: myHeaders,
+            body: raw,
+            redirect: 'follow'
+        };
 
-    const dados = await fetch(URL_TO_FETCH, requestOptions).then(res => {
-        return res.json()
-    });
+        const dados = await fetch(URL_TO_FETCH, requestOptions).then(res => {
+            return res.json()
+        });
 
-    document.getElementById("set-modal").children[0].remove();
-    LoadTable($("#filtro").val())
+        document.getElementById("set-modal").children[0].remove();
+        LoadTable($("#filtro").val())
+    }
 }
 
 

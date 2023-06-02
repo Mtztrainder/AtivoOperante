@@ -88,12 +88,3 @@ function validaDados(){
 
     return !erro
 }
-
-function addErro(id, erro= "Campo obrigatório"){
-    $(`#e_${id}`).html(erro);
-    $(`#e_${id}`).show()
-}
-
-function removeErro(id){
-    $(`#e_${id}`).hide()
-}

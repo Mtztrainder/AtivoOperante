@@ -21,6 +21,7 @@ public interface DenunciaRepository extends JpaRepository<Denuncia, Long> {
     void addFeedback(@Param("den_id") Long den_id, @Param("texto") String texto);
     
 
+    public List<Denuncia> findAllByUsuarioOrderByDtCriacaoDesc(Usuario usuario);
 
     public List<Denuncia> findAllByUsuarioAndTituloContainingIgnoreCaseOrderByTituloAsc(Usuario usuario, String titulo);
 }
