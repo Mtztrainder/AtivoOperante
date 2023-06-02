@@ -53,7 +53,7 @@ async function LoadTable(busca) {
             <tr class="flex w-full hover:bg-gray-100 hover:bg-gray-200">
                 <td class="p-4 w-1/12 text-base font-medium text-gray-900 whitespace-nowrap text-white">${denuncia.id}</td>   
                 <td class="p-4 truncate w-2/12 text-base font-medium text-gray-900 whitespace-nowrap text-white">${denuncia.titulo}</td>   
-                <td class="p-4 w-1/12 text-base font-medium text-gray-900 whitespace-nowrap text-white">${denuncia.urgencia}</td>   
+                <td class="p-4 w-1/12 text-base font-medium text-gray-900 whitespace-nowrap text-white">${getUrgencia(denuncia.urgencia)}</td>   
                 <td class="p-4 w-2/12 text-base font-medium text-gray-900 whitespace-nowrap text-white">${getFormattedDateTime(denuncia.dtCriacao)}</td>   
                 <td class="p-4 w-2/12 text-base font-medium text-gray-900 whitespace-nowrap text-white">${denuncia.orgao.nome}</td>            
                 <td class="p-4 w-2/12 text-base font-medium text-gray-900 whitespace-nowrap text-white">${getFeedBack(denuncia.feedback)}</td>
@@ -126,6 +126,7 @@ async function Feedback(id){
     document.getElementById("id").value = id;
     document.getElementById("titulo").value = den.titulo;
     document.getElementById("urgencia").value = den.urgencia;
+    document.getElementById("desc_urgencia").innerHTML = getUrgencia(den.urgencia);
     document.getElementById("orgao").value = den.orgao.nome;
     document.getElementById("orgao").html = den.orgao.nome;
     document.getElementById("tipo").value = den.tipo.nome;
@@ -146,6 +147,8 @@ async function OpenModal() {
             <h1 class="text-gray-800 font-lg font-bold tracking-normal leading-tight mb-4">Denuncie</h1>
             <form id="form-denuncia">
                 <input id="id" name="id" type="hidden" />
+                <input id="urgencia" name="urgencia" class="hidden" readonly />
+
                 <label for="titulo" class="text-gray-800 text-sm 
                                         font-bold leading-tight tracking-normal">Titulo da Denuncia</label>
                 <input type="text" id="titulo" name="titulo"  readonly
@@ -156,8 +159,8 @@ async function OpenModal() {
                     placeholder="Ex: ..." />
                     
                 
-                    <label for="urgencia" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Urgência</label>
-                    <input id="urgencia" name="urgencia" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" readonly />
+                    <label for="desc_urgencia" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Urgência</label>
+                    <span id="desc_urgencia" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"></span>
                     
                     <label for="orgao" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Orgão</label>
                     <input id="orgao" name="orgao" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" readonly/>                    

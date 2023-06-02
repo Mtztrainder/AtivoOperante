@@ -4,7 +4,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.ativooperante_back.db.entidades.Usuario;
@@ -76,4 +79,28 @@ public class SecurityRestController {
         }
         return ResponseEntity.badRequest().body("Usuario não encontrado");
     } 
+
+    @PostMapping("cadastrar-usuario")
+    public ResponseEntity <Object> cadastrar(@RequestParam("email") String email, 
+                                            @RequestParam("cpf") String cpf,
+                                            @RequestParam("nome") String nome,
+                                            @RequestParam("senha") String senha)
+    {
+        Usuario usuario = new Usuario(cpf, nome, email, senha, 1);
+        Usuario us=usuarioDAO.findByEmail(email);
+
+        
+        if(us==null)
+        {   
+            try {
+                usuarioDAO.save(usuario);
+                return ResponseEntity.ok().body("OK");
+            } catch (Exception e) {
+                // TODO: handle exception
+                return ResponseEntity.ok().body(e.getMessage());
+            }
+            
+        }
+        return ResponseEntity.badRequest().body("E-mail já cadastrado.");
+    }  
 }

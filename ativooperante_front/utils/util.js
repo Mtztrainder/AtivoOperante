@@ -178,3 +178,23 @@ function ProfileDropDown(){
         </ul>
     `)
 }
+
+function getUrgencias(){
+    let lista = [
+        { id: 1, nome: "Não Urgente"},
+        { id: 2, nome: "Pouco Urgente"},
+        { id: 3, nome: "Urgente"},
+        { id: 4, nome: "Muito Urgente"},
+        { id: 5, nome: "Emergente"}
+    ]
+
+    return lista;
+}
+
+function getUrgencia(id){
+    let lista = getUrgencias();
+
+    return lista.filter(urg =>{
+        return urg.id == id
+    })[0].nome
+}

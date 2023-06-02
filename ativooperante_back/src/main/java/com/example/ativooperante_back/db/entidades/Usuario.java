@@ -36,6 +36,10 @@ public class Usuario {
         this(0L, "", "", "", "", 0);
     }
 
+    public Usuario(String cpf, String nome, String email, String senha, int nivel) {
+        this(0L, cpf, nome, email, senha, nivel);
+    }
+
     public Usuario(Long id, String cpf, String nome, String email, String senha, int nivel) {
         this.id = id;
         this.cpf = cpf;

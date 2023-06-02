@@ -52,7 +52,7 @@ async function LoadTable(busca) {
         <tr class="flex w-full hover:bg-gray-100 hover:bg-gray-200">
             <td class="p-4 w-1/12 text-base font-medium text-gray-900 whitespace-nowrap text-white">${denuncia.id}</td>   
             <td class="p-4 truncate w-2/12 text-base font-medium text-gray-900 whitespace-nowrap text-white">${denuncia.titulo}</td>   
-            <td class="p-4 w-1/12 text-base font-medium text-gray-900 whitespace-nowrap text-white">${denuncia.urgencia}</td>   
+            <td class="p-4 w-1/12 text-base font-medium text-gray-900 whitespace-nowrap text-white">${getUrgencia(denuncia.urgencia)}</td>   
             <td class="p-4 w-2/12 text-base font-medium text-gray-900 whitespace-nowrap text-white">${getFormattedDateTime(denuncia.dtCriacao)}</td>   
             <td class="p-4 w-2/12 text-base font-medium text-gray-900 whitespace-nowrap text-white">${denuncia.orgao.nome}</td>
             <td class="p-4 w-2/12 text-base font-medium text-gray-900 whitespace-nowrap text-white">${denuncia.tipo.nome}</td>
@@ -103,6 +103,8 @@ async function OpenModal() {
     let modalContent = "";
     let orgaos = await getOrgao();
     let tipos = await getTipo();
+    let urg = getUrgencias()
+    
     modalContent = `   
     <div class="py-12 bg-gray-700 bg-opacity-80 transition duration-150 ease-in-out z-10 absolute top-0 right-0 bottom-0 left-0  flex flex-col justify-center items-center" id="modal">
     <div role="alert" class=" container align-center w-11/12 md:w-2/3 max-w-lg">
@@ -123,12 +125,11 @@ async function OpenModal() {
                 
                     <label for="urgencia" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Urgência</label>
                     <select id="urgencia" name="urgencia" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-                      <option></option>
-                      <option value='1'>Não Urgente</option>
-                      <option value='2'>Pouco Urgente</option>
-                      <option value='3'>Urgente</option>
-                      <option value='4'>Muito Urgente</option>
-                      <option value='5'>Emergente</option>
+                        <option></option>`
+                    urg.forEach(elem => {
+                        modalContent += `<option value='${elem.id}'>${elem.nome}</option>`
+                    })
+                    modalContent += `
                     </select>
                     <label for="orgao" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Orgão</label>
                     <select id="orgao" name="orgao" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
@@ -285,8 +286,8 @@ function getFormattedDateTime(datac) {
 
 function getFeedBack(feedback) {
     let str = "Não possui feedback";
-    if (feedback != undefined && feedback != null && feedback.length > 0) {
-        str = feedback;
+    if (feedback != undefined && feedback != null && feedback.texto.length > 0) {
+        str = feedback.texto;
     }
     return str;
 }
