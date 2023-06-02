@@ -246,7 +246,7 @@ async function Salvar() {
     {
         await Swal.fire({
             title: 'Atenção!',
-            html: 'Você tem certeza que deseja incluir? Uma vez inserido, não poderá ser excluído.',
+            html: 'Você tem certeza que deseja enviar esta denuncia? Uma vez enviada, não poderá ser excluída ou alterada.',
             icon: 'question',
             showCancelButton: true,
             confirmButtonColor: '#3085d6',
